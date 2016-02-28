@@ -8,6 +8,7 @@ use app\models\Quizsearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * QuizController implements the CRUD actions for Quiz model.
@@ -17,6 +18,16 @@ class QuizController extends Controller
     public function behaviors()
     {
         return [
+
+            'access'=>[
+                'class'=>AccessControl::classname(),
+                'only'=>['create','update','index','view','search','form','present'],
+                'rules'=>[
+                    [
+                        'allow'=>true,
+                        'roles'=>['@']]]
+            ],
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

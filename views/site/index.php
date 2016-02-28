@@ -5,6 +5,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\Data;
 /* @var $this yii\web\View */
 
 
@@ -16,20 +17,20 @@ use yii\helpers\Html;
     <div class="body-content">
 <?php
         if(Yii::$app->user->identity['role']=='student') {
-            $url = "http://localhost/quizdb2/web/index.php?r=site/newquiz";
+            $url = Data::$url."site/newquiz";
             $this->title = 'My Yii Application';
             echo Html::a('Challenges', $url, ['class' => 'btn btn-success']);
         }
 
         if(Yii::$app->user->identity['role']=='admin') {
-            $url = "http://localhost/quizdb2/web/index.php?r=quiz/index";
+            $url = Data::$url."quiz/index";
             $this->title = 'My Yii Application';
             echo Html::a('Manage-Challenges', $url, ['class' => 'btn btn-success']);
             echo "<br>";
             echo "<br>";
             echo "<br>";
 
-            $url = "http://localhost/quizdb2/web/index.php?r=users/index";
+            $url = Data::$url."users/index";
             $this->title = 'My Yii Application';
             echo Html::a('Manage-Users', $url, ['class' => 'btn btn-success']);
 

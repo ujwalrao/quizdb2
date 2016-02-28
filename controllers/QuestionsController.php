@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Data;
 use app\models\Presentquiz;
 use app\models\QuestionForm;
 use Yii;
@@ -24,7 +25,7 @@ class QuestionsController extends Controller
     public function behaviors()
     {
         return [
-        /*
+
         'access'=>[
             'class'=>AccessControl::classname(),
             'only'=>['create','update','index','view','search','form'],
@@ -33,7 +34,7 @@ class QuestionsController extends Controller
                 'allow'=>true,
                 'roles'=>['@']]]
             ],
-          */  
+
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -87,8 +88,8 @@ class QuestionsController extends Controller
             //exit();
             if ($model->validate()) {
                 //$query1 = Questions::find()->where(['quizid' => $id])->asArray()->all();
-        $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
-
+//        $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
+$query1=Data::$query1;
 
         $pagination = new Pagination([
             'defaultPageSize' => 1,
@@ -239,7 +240,7 @@ class QuestionsController extends Controller
 
 
             $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
-
+            Data::$query1=$query1;
             
 
         $pagination = new Pagination([

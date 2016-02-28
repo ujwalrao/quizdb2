@@ -5,6 +5,7 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\Data;
 /* @var $this yii\web\View */
 
 
@@ -15,7 +16,7 @@ use yii\helpers\Html;
 
     <div class="body-content">
         <?php
-        $url="http://localhost/quizdb2/web/index.php?r=quiz/present";
+        $url=Data::$url."quiz/present";
         $this->title = 'My Yii Application';
         echo Html::a('Present Quizzes', $url, ['class' => 'btn btn-success']);
 
