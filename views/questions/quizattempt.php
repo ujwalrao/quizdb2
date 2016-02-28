@@ -9,6 +9,7 @@ use yii\widgets\Pjax;
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\models\QuestionForm */
 
+
 $this->title = 'Questions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -36,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
            // }
             //$questions=(array)$questions;
             //shuffle($questions);
+            //changing working
             foreach($maindata as $value) {
                 ?>
                 <?php
