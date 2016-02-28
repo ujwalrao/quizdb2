@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php $url = "http://localhost/quizdb2/web/index.php?r=site/signup";
 
-        echo Html::a('Challenges', $url, ['class' => 'btn btn-success']);?>
+        echo Html::a('Create-user', $url, ['class' => 'btn btn-success']);?>
 
     </p>
 

@@ -43,14 +43,24 @@ class QuizController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new Quizsearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if (Yii::$app->user->identity['role'] != 'student') {
+            $searchModel = new Quizsearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        else{
+            return $this->render('//site/error', [
+                'message'=>"Students arent allowed to manage quizes",
+                'name'=>"Unauthorized for students",
+            ]);
+
+        }
     }
+
 
     /**
      * Displays a single Quiz model.

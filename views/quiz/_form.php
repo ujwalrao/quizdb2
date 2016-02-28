@@ -22,7 +22,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     <?= $form->field($model, 'coursename')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'starttime')->widget(DateTimePicker::className(), [
-    'language' => 'es',
+    'language' => 'en',
     'size' => 'ms',
     'template' => '{input}',
     'pickButtonIcon' => 'glyphicon glyphicon-time',
@@ -32,14 +32,14 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minView' => 0,
         'maxView' => 1,
         'autoclose' => true,
-        'linkFormat' => 'HH:ii P', // if inline = true
-        // 'format' => 'HH:ii P', // if inline = false
+        //'linkFormat' => 'dd MM yyyy - HH:ii P', // if inline = true
+        'format' => 'dd MM yyyy - HH:ii P', // if inline = false
         'todayBtn' => true
     ]
 ]) ?>
 
     <?= $form->field($model, 'endtime')->widget(DateTimePicker::className(), [
-    'language' => 'es',
+    'language' => 'en',
     'size' => 'ms',
     'template' => '{input}',
     'pickButtonIcon' => 'glyphicon glyphicon-time',
@@ -49,8 +49,8 @@ use dosamigos\datetimepicker\DateTimePicker;
         'minView' => 0,
         'maxView' => 1,
         'autoclose' => true,
-        'linkFormat' => 'HH:ii P', // if inline = true
-        // 'format' => 'HH:ii P', // if inline = false
+        //'linkFormat' => 'dd MM yyyy - HH:ii P', // if inline = true
+        'format' => 'dd MM yyyy - HH:ii P', // if inline = false
         'todayBtn' => true
     ]
 ]) ?>

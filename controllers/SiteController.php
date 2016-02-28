@@ -10,7 +10,9 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\AdminLogin;
 use app\models\SignupForm;
-
+use app\models\Admin;
+use app\models\Quizsetter;
+use app\models\Student;
 class SiteController extends Controller
 {
     public function behaviors()
@@ -100,6 +102,28 @@ class SiteController extends Controller
             $temp=Yii::$app->request->post();
             $temp = $temp['SignupForm'];
             $model->role=$temp['role'];
+            if($temp['role']=='admin'){
+                $admin=new Admin();
+                $admin->adminid=$temp['username'];
+                $admin->save();
+            }
+
+            if($temp['role']=='student'){
+                $student=new Student();
+                $student->userid=$temp['username'];
+                $student->save();
+
+            }
+
+            if($temp['role']=='setter'){
+                $setter=new Quizsetter();
+                $setter->setterid=$temp['username'];
+                //print_r( $setter->save());
+
+                $setter->save();
+                //exit();
+            }
+
 
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {

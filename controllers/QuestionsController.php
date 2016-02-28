@@ -88,14 +88,14 @@ class QuestionsController extends Controller
             //exit();
             if ($model->validate()) {
                 //$query1 = Questions::find()->where(['quizid' => $id])->asArray()->all();
-//        $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
+        $query4 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
 $query1=Data::$query1;
 
         $pagination = new Pagination([
             'defaultPageSize' => 1,
-            'totalCount' => $query1->count(),
+            'totalCount' => $query4->count(),
         ]);
-            $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+            //$query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
            
             
 
@@ -240,16 +240,16 @@ $query1=Data::$query1;
 
 
             $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
-            Data::$query1=$query1;
-            
+
 
         $pagination = new Pagination([
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
             $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+            Data::$query1=$query1;
 
- //print_r($query1);
+            //print_r($query1);
    //         exit();
                     
 

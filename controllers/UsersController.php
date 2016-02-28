@@ -43,13 +43,21 @@ class UsersController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new Userssearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if(Yii::$app->user->identity['role']=='admin') {
+            $searchModel = new Userssearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        else{
+            return $this->render('//site/error', [
+                'message'=>"Nonadmins arent allowed to manage users",
+                'name'=>"Unauthorized for Nonadmins",
+            ]);
+        }
     }
 
     /**

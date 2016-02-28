@@ -21,8 +21,16 @@ use app\models\Data;
             $this->title = 'My Yii Application';
             echo Html::a('Challenges', $url, ['class' => 'btn btn-success']);
         }
+        if(Yii::$app->user->identity['role']=='setter') {
+            $url = Data::$url."quiz/index";
+            $this->title = 'My Yii Application';
+            echo Html::a('Managequizes', $url, ['class' => 'btn btn-success']);
 
-        if(Yii::$app->user->identity['role']=='admin') {
+
+
+        }
+
+if(Yii::$app->user->identity['role']=='admin') {
             $url = Data::$url."quiz/index";
             $this->title = 'My Yii Application';
             echo Html::a('Manage-Challenges', $url, ['class' => 'btn btn-success']);

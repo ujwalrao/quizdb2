@@ -42,7 +42,16 @@ class Quizsearch extends Quiz
      */
     public function search($params)
     {
-        $query = Quiz::find();
+        if(Yii::$app->user->identity['role']=='admin') {
+            $query = Quiz::find();
+        }
+        if(Yii::$app->user->identity['role']=='setter') {
+            $query = Quiz::find()->where(['setterid'=>Yii::$app->user->identity['username']]);
+        }
+        if(Yii::$app->user->identity['role']=='student') {
+            $query = Quiz::find();
+        }
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -39,14 +39,15 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'totalquestions',
             // 'department',
             // 'setterid',
-[
+
+            Yii::$app->user->identity['role']!='admin'?[
             'label'=>'Custom Link',
             'format'=>'raw',
             'value' => function($data){
                 $url = "http://localhost/quizdb2/web/index.php?Questionssearch[quizid]=".$data['quizid']."&r=questions";
                 return Html::a('Edit-Questions', $url, ['class' => 'btn btn-success']);
             }
-],
+] :[],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
