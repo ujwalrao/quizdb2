@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Data;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Questionssearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -16,13 +17,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Questions', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+        $url=Data::$url.'questions/create&id='.$id;
+
+        ?>
+        <?= Html::a('Create Questions', $url, ['class' => 'btn btn-success']) ?>
     </p>
+
     <?php 
            
-            Pjax::begin();
+      //      Pjax::begin();
             ?>
-            
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -54,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php 
            
-            Pjax::end();
+        //    Pjax::end();
             ?>
             
 

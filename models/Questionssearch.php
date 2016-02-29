@@ -43,10 +43,12 @@ class Questionssearch extends Questions
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$id)
     {
-        $query = Questions::find();
+        if(Yii::$app->user->identity['role']='setter') {
 
+            $query = Questions::find()->where(['quizid'=>$id]);
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);

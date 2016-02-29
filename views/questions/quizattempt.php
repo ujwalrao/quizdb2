@@ -4,7 +4,8 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
-
+use app\models\user;
+use \russ666\widgets\Countdown;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\models\QuestionForm */
@@ -13,19 +14,31 @@ use yii\widgets\Pjax;
 $this->title = 'Questions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="questions-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
 
     <div class="row">
         <div class="col-lg-5">
 
 
 
-            <?php 
-           
-            Pjax::begin();
+            <?php
+            $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+            $diff = abs(strtotime($date1) - strtotime($datetime));
+            //echo $diff;
+            echo \russ666\widgets\Countdown::widget([
+                'datetime' => date('Y-m-d H:i:s', time()+60*60*5+30*60+$diff),
+                'format' => '%D:%H:%M:%S',
+                'events' => [
+                    'finish' => 'function(){ document.getElementById("form-submit").submit(); }',
+                ],
+            ]);
+            //Pjax::begin();
+
             ?>
             <?php
             $i=0;
@@ -42,35 +55,42 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
                 <?php
 
-                $form = ActiveForm::begin(['id' => 'form-question']);
+                $form = ActiveForm::begin(['id' => 'form-question'.$i]);
 
                 ?>
-
+                <?php echo (string)($i+1).')'; ?>
                  <?= $maindata[$i]['questiontext'] ?>
 <?php
                 //$model->questionid=$maindata[$i]['questionid'];
+                //echo "a";
                 if($maindata[$i]['option1']!=NULL){
-                echo $form->field($model, 'option1')->checkbox(['value' => 1])->label($maindata[$i]['option1']);
+                   // echo "a)";
+                     echo $form->field($model, 'option1')->checkbox(['label' => 'a) '. $maindata[$i]['option1']]);
                 }
                 if($maindata[$i]['option2']!=NULL){
-                    echo $form->field($model, 'option2')->checkbox(['label' => $maindata[$i]['option2']]);
+                    //echo "b)";
+                    echo $form->field($model, 'option2')->checkbox(['label' => 'b) '.$maindata[$i]['option2']]);
                 }
                 if($maindata[$i]['option3']!=NULL){
-                    echo $form->field($model, 'option3')->checkbox(['label' => $maindata[$i]['option3']]);
+                    //echo "c)";
+                    echo $form->field($model, 'option3')->checkbox(['label' => 'c) '.$maindata[$i]['option3']]);
                 }
                 if($maindata[$i]['option4']!=NULL){
-                    echo $form->field($model, 'option4')->checkbox(['label' => $maindata[$i]['option4']]);
+                    //echo "d)";
+                    echo $form->field($model, 'option4')->checkbox(['label' => 'd) '.$maindata[$i]['option4']]);
                 }
                 if($maindata[$i]['option5']!=NULL){
-                echo $form->field($model, 'option5')->checkbox(['label' => $maindata[$i]['option5']]);
+                   // echo "e)";
+                    echo $form->field($model, 'option5')->checkbox(['label' => 'e) '.$maindata[$i]['option5']]);
                 }
  echo Html::activeHiddenInput($model,'questionid',['value'=> $maindata[$i]['questionid']]) ;
  echo Html::activeHiddenInput($model,'userid',['value'=> 'user']) 
                   ;
 echo Html::activeHiddenInput($model,'quizid',['value'=> $maindata[$i]['quizid']]) ;
-                  
-                   
-//echo Html::activeHiddenInput($model,'hiddenquery1[]',['value'=> $maindata]) ;
+if(!isset($quizid)) {
+    $quizid = $maindata[$i]['quizid'];
+}
+//echo Html::activeHiddenInput($model,'query1',['value'=> $maindata]) ;
                   
                    
                  //echo $form->hiddenField($model,'questionid',array('value'=>$maindata[$questions[$i]]['questionid']));
@@ -92,8 +112,7 @@ echo Html::activeHiddenInput($model,'quizid',['value'=> $maindata[$i]['quizid']]
             }
             ?>
             
-            <?= LinkPager::widget(['pagination' => $pagination]) ?>
-            
+
         </div>
     </div>
 
@@ -102,9 +121,9 @@ echo Html::activeHiddenInput($model,'quizid',['value'=> $maindata[$i]['quizid']]
 
 
 <?php
-            $form = ActiveForm::begin(['id' => 'form-submit']);
+            $form = ActiveForm::begin(['id' => 'form-submit','action'=>'index.php?r=questions/submission&id='.$quizid]);
               ?>
-              <div class="form-group">
+              <div class="form-group" id="endtest">
                     <?= Html::submitButton('endtest', ['class' => 'btn btn-primary', 'name' => 'endtest']) ?>
                
                 </div>
@@ -113,5 +132,5 @@ echo Html::activeHiddenInput($model,'quizid',['value'=> $maindata[$i]['quizid']]
                 
 ?>
 <?php
-            Pjax::end();
+           // Pjax::end();
             ?>

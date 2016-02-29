@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'label'=>'Custom Link',
             'format'=>'raw',
             'value' => function($data){
-                $url = "http://localhost/quizdb2/web/index.php?Questionssearch[quizid]=".$data['quizid']."&r=questions";
+                $url = "http://localhost/quizdb2/web/index.php?r=questions/index&id=".$data['quizid'];
                 return Html::a('Edit-Questions', $url, ['class' => 'btn btn-success']);
             }
 ] :[],

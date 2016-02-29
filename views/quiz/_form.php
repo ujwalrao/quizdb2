@@ -30,7 +30,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     'clientOptions' => [
         'startView' => 1,
         'minView' => 0,
-        'maxView' => 1,
+        //'maxView' => 1,
         'autoclose' => true,
         //'linkFormat' => 'dd MM yyyy - HH:ii P', // if inline = true
         'format' => 'dd MM yyyy - HH:ii P', // if inline = false
@@ -47,7 +47,7 @@ use dosamigos\datetimepicker\DateTimePicker;
     'clientOptions' => [
         'startView' => 1,
         'minView' => 0,
-        'maxView' => 1,
+        //'maxView' => 1,
         'autoclose' => true,
         //'linkFormat' => 'dd MM yyyy - HH:ii P', // if inline = true
         'format' => 'dd MM yyyy - HH:ii P', // if inline = false

@@ -10,11 +10,14 @@ use yii\widgets\ActiveForm;
 
 <div class="questions-form">
 
+
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'quizid')->textInput() ?>
+    <?php // echo  $form->field($model, 'quizid')->textInput() ?>
 
-    <?= $form->field($model, 'questionid')->textInput() ?>
+    <?= Html::activeHiddenInput($model,'quizid',['value'=> $id]) ;?>
+
+    <?php echo $form->field($model, 'questionid')->textInput() ?>
 
     <?= $form->field($model, 'questiontext')->textarea(['rows' => 6]) ?>
 
