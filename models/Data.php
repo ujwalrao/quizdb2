@@ -11,6 +11,6 @@ namespace app\models;
 
 class Data
 {
-    public static $url="http://athena.nitc.ac.in/paluru_b120419cs/quizdb2/web/index.php?r=";
+    public static $url="http://localhost/quizdb2/web/index.php?r=";
     public static $query1;
 }

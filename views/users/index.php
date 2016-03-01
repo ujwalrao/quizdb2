@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\Data;
-
+use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Userssearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,9 +19,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?php $url = Data::$url."site/signup";
 
-        echo Html::a('Create-user', $url, ['class' => 'btn btn-success']);?>
-
+        echo Html::a('Create-user', $url, ['class' => 'btn btn-success']);
+       ?>
     </p>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
+
+    <?= $form->field($model, 'imageFile')->fileInput() ?>
+
+    <button>Submit</button>
+
+    <?php ActiveForm::end() ?>
+
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
