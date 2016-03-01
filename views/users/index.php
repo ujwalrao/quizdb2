@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?php $url = "http://localhost/quizdb2/web/index.php?r=site/signup";
+        <?php $url = Data::$url."site/signup";
 
         echo Html::a('Create-user', $url, ['class' => 'btn btn-success']);?>
 
