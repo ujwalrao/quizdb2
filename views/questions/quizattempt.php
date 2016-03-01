@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
                 <?php
 
-                $form = ActiveForm::begin(['id' => 'form-question'.$i]);
+                $form = ActiveForm::begin(['id' => 'form-question'.$i,'options' => ['autocomplete' => 'off']]);
 
                 ?>
                 <?php echo (string)($i+1).')'; ?>

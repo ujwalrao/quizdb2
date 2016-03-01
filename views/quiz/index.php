@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use app\models\Data;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Quizsearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'label'=>'Custom Link',
             'format'=>'raw',
             'value' => function($data){
-                $url = "http://localhost/quizdb2/web/index.php?r=questions/index&id=".$data['quizid'];
+                $url = Data::$url."questions/index&id=".$data['quizid'];
                 return Html::a('Edit-Questions', $url, ['class' => 'btn btn-success']);
             }
 ] :[],

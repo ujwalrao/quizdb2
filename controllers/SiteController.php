@@ -123,13 +123,15 @@ class SiteController extends Controller
                 $setter->save();
                 //exit();
             }
-
-
+$model->signup();
+/*
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
                     return $this->goHome();
                 }
             }
+            removed automatic login during submission signupform
+            */
         }
 
         return $this->render('signup', [

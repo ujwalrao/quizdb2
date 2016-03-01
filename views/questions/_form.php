@@ -14,7 +14,6 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?php // echo  $form->field($model, 'quizid')->textInput() ?>
-
     <?= Html::activeHiddenInput($model,'quizid',['value'=> $id]) ;?>
 
     <?php echo $form->field($model, 'questionid')->textInput() ?>
