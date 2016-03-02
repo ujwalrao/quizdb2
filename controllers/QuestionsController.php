@@ -66,8 +66,6 @@ class QuestionsController extends Controller
     public function actionQuizattempt($id)
     {
 
-//print_r(Yii::$app->user->identity['username']);
-//exit();
         $model = new Presentquiz();
         //$model=$this->findModel($id);
         
@@ -87,17 +85,17 @@ class QuestionsController extends Controller
             //exit();
             if ($model->validate()) {
                 //$query1=$tem['query1'];
-                //$query1 = Questions::find()->where(['quizid' => $id])->asArray()->all();
-       $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'))->all();
+         //       $query1 = Questions::find()->where(['quizid' => $id]);
+       $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
        //         $query1=Data::$query1;
 
-       /* $pagination = new Pagination([
+        $pagination = new Pagination([
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
 
             $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
-       */
+
             
 
         
@@ -120,7 +118,7 @@ class QuestionsController extends Controller
                 'maindata' => $query1,
                 'model' => $model,
                 'datetime'=>$date,
-                //'pagination' => $pagination,
+                'pagination' => $pagination,
 
             ]);
         
@@ -243,15 +241,15 @@ class QuestionsController extends Controller
 
 
 
-            $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'))->all();
+            $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
 
-/*
+
         $pagination = new Pagination([
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
-  */
-            //$query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+
+            $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
             //Data::$query1=$query1;
 
             //print_r($query1);
@@ -263,8 +261,8 @@ class QuestionsController extends Controller
             return $this->render('quizattempt', [
                 'maindata' => $query1,
                 'model' => $model,
-            'datetime'=>$date,
-                //'pagination' => $pagination,
+                'datetime'=>$date,
+                'pagination' => $pagination,
 
             ]);
         }

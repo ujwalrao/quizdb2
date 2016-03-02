@@ -6,7 +6,6 @@ use yii\widgets\LinkPager;
 use yii\widgets\Pjax;
 use app\models\user;
 use \russ666\widgets\Countdown;
-use
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\models\QuestionForm */
@@ -59,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 $form = ActiveForm::begin(['id' => 'form-question'.$i,'options' => ['autocomplete' => 'off']]);
 
                 ?>
-                <?php echo (string)($i+1).')'; ?>
+                <?php //echo (string)($i+1).')'; ?>
                  <?= $maindata[$i]['questiontext'] ?>
 <?php
                 //$model->questionid=$maindata[$i]['questionid'];
@@ -132,6 +131,8 @@ if(!isset($quizid)) {
                 <?php ActiveForm::end();
                 
 ?>
+<?= LinkPager::widget(['pagination' => $pagination]) ?>
 <?php
+
            // Pjax::end();
             ?>

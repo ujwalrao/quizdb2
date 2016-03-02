@@ -15,8 +15,7 @@ use yii\web\UploadedFile;
 use app\models\SignupForm;
 use app\models\Student;
 use app\models\Admin;
-
-use app\models\Setter;
+use app\models\Quizsetter;
 /**
  * UsersController implements the CRUD actions for Users model.
  */
@@ -76,10 +75,7 @@ class UsersController extends Controller
                 $setter->save();
                 //exit();
             }
-            if(!$model->signup()){
-               // print_r($model);
-                //exit();
-            }
+            $model->signup();
             /*
                         if ($user = $model->signup()) {
                             if (Yii::$app->getUser()->login($user)) {
