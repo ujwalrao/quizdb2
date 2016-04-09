@@ -59,6 +59,19 @@ class Quiz extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
+
+            // $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+            // $diff = abs(strtotime($date1) - strtotime($model -> starttime));
+            // //echo $diff;
+            // $remtime = \russ666\widgets\Countdown::widget([
+            //     'datetime' => date('Y-m-d H:i:s', time()+60*60*5+30*60+$diff),
+            //     'format' => '%D:%H:%M:%S',
+            //     // 'events' => [
+            //     //     'finish' => 'function(){ document.getElementById("form-submit").submit(); }',
+            //     // ],
+            // ]);
+            // //Pjax::begin();
+
         return [
             'quizid' => 'Quizid',
             'quizname' => 'Quizname',
@@ -66,6 +79,7 @@ class Quiz extends \yii\db\ActiveRecord
             'courseid' => 'Courseid',
             'coursename' => 'Coursename',
             'starttime' => 'Starttime',
+            // 'remtime' => 'remtime',
             'endtime' => 'Endtime',
             'totalscore' => 'Totalscore',
             'totalquestions' => 'Totalquestions',
@@ -95,7 +109,7 @@ class Quiz extends \yii\db\ActiveRecord
      */
     public function getPresentquizzes()
     {
-        return $this->hasMany(Presentquiz::className(), ['quizid' => 'quizid']);
+        return $this->hasMany(Presentquiz::className(), ['quizid' => 'quizid'])->orderBy('starttime');
     }
 
     /**

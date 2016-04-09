@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $i=0;
             //$noofquestions=count($maindata);
             //$questions=new SplFixedArray($noofquestions);
-            
+
             //for($t=0;$t<$noofquestions;$t++){
               //  $questions[$t]=$t;
            // }
@@ -84,15 +84,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo $form->field($model, 'option5')->checkbox(['label' => 'e) '.$maindata[$i]['option5']]);
                 }
  echo Html::activeHiddenInput($model,'questionid',['value'=> $maindata[$i]['questionid']]) ;
- echo Html::activeHiddenInput($model,'userid',['value'=> 'user']) 
+ echo Html::activeHiddenInput($model,'userid',['value'=> 'user'])
                   ;
 echo Html::activeHiddenInput($model,'quizid',['value'=> $maindata[$i]['quizid']]) ;
 if(!isset($quizid)) {
     $quizid = $maindata[$i]['quizid'];
 }
 //echo Html::activeHiddenInput($model,'query1',['value'=> $maindata]) ;
-                  
-                   
+
+
                  //echo $form->hiddenField($model,'questionid',array('value'=>$maindata[$questions[$i]]['questionid']));
                 //Html::activeHiddenInput($model, 'my_field')
                 // $form->field($model, 'questionid',array('value'=>$maindata[$questions[$i]]['questionid']))->hiddenInput()->label(false);
@@ -100,18 +100,18 @@ if(!isset($quizid)) {
 
 //echo $form->field($model,'questionid',)
 
-  //               echo $form->hiddenField($model,'questionid',['type'=>'hidden','value'=> $maindata[$questions[$i]]['questionid']]);?> 
-                    
+  //               echo $form->hiddenField($model,'questionid',['type'=>'hidden','value'=> $maindata[$questions[$i]]['questionid']]);?>
+
                               <div class="form-group">
                     <?= Html::submitButton('submit', ['class' => 'btn btn-primary', 'name' => 'submit-button']) ?>
-               
+
                 </div>
 
                 <?php ActiveForm::end();
                 $i++;
             }
             ?>
-            
+
 
         </div>
     </div>
@@ -125,11 +125,11 @@ if(!isset($quizid)) {
               ?>
               <div class="form-group" id="endtest">
                     <?= Html::submitButton('endtest', ['class' => 'btn btn-primary', 'name' => 'endtest']) ?>
-               
+
                 </div>
 
                 <?php ActiveForm::end();
-                
+
 ?>
 <?= LinkPager::widget(['pagination' => $pagination]) ?>
 <?php

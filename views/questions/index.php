@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Create Questions', $url, ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php 
-           
+    <?php
+
       //      Pjax::begin();
             ?>
 
@@ -38,7 +38,12 @@ $this->params['breadcrumbs'][] = $this->title;
             //'quizid',
             'questionid',
             'questiontext:ntext',
-            //'image',
+            'image',
+            // [
+            //     'attribute'=>'photo',
+            //     'value' =>  Html::a(Html::img(Yii::getAlias('@web').'/image/'.$st_data->photo, ['alt'=>'some', 'class'=>'thing', 'height'=>'100px', 'width'=>'100px']), ['site/zoom']),
+            //     'format' => ['raw'],
+            // ],
             //'noofoptions',
              'option1',
              'option2',
@@ -58,10 +63,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
-    <?php 
-           
+    <?php
+
         //    Pjax::end();
             ?>
-            
+
 
 </div>

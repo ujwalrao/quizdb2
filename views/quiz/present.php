@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -27,10 +28,34 @@ $this->params['breadcrumbs'][] = $this->title;
             'inchargename',
             'courseid',
             'coursename',
-            // 'starttime',
+            'starttime',
+            // 'remtime',
             // 'endtime',
             // 'department',
             // 'setterid',
+            [
+                'attribute' => 'remtime',
+                'format' => 'raw',
+                'value' => function ($model) {
+
+                        /*date_default_timezone_set('Asia/Kolkata');
+                        $current_time = time();
+                        $startdate= strtotime($model -> starttime);
+                        $diff = $startdate - $current_time;
+                        $d = ($diff/(60*60*24))%365;
+                        $h = ($diff/(60*60))%24;
+                        $m = ($diff/60)%60;
+                        $s = ($diff)%60;
+                        return $time = $d . ":" . $h . ":" . $m . ":" . $s;*/
+                         $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+                         $diff = abs(strtotime($date1) - strtotime($model -> starttime));
+                       return  \russ666\widgets\Countdown::widget([
+                 'datetime' => date('Y-m-d H:i:s', time()+60*60*5+30*60+$diff),
+                 'format' => '%D:%H:%M:%S',
+                 ]);
+
+                },
+            ],
 
             Yii::$app->user->identity['role']=='student' ?[
                 'label'=>'Custom Link',

@@ -79,17 +79,17 @@ class QuizController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
- public function actionPresent() 
-   { 
-       $searchModel = new Quizsearch(); 
-       $dataProvider = $searchModel->search(Yii::$app->request->queryParams); 
- 
-       return $this->render('present', [ 
-           'searchModel' => $searchModel, 
-           'dataProvider' => $dataProvider, 
-       ]); 
-   } 
-    
+ public function actionPresent()
+   {
+       $searchModel = new Quizsearch();
+       $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+       return $this->render('present', [
+           'searchModel' => $searchModel,
+           'dataProvider' => $dataProvider,
+       ]);
+   }
+
     public function actionCreate()
     {
         $model = new Quiz();
