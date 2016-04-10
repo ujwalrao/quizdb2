@@ -12,6 +12,7 @@ use Yii;
  * @property string $inchargename
  * @property string $courseid
  * @property string $coursename
+ * @property string $Options
  * @property string $starttime
  * @property string $endtime
  * @property double $totalscore
@@ -43,9 +44,10 @@ class Quiz extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['quizname', 'inchargename', 'courseid', 'coursename', 'starttime', 'endtime', 'totalscore', 'totalquestions', 'department', 'setterid'], 'required'],
+            [['quizname', 'inchargename', 'courseid', 'coursename', 'Options', 'starttime', 'endtime', 'totalscore', 'totalquestions', 'department', 'setterid'], 'required'],
             [['starttime', 'endtime'], 'safe'],
             [['totalscore'], 'number'],
+            [['Options'], 'integer'],
             [['totalquestions'], 'integer'],
             [['quizname', 'inchargename'], 'string', 'max' => 50],
             [['courseid', 'department'], 'string', 'max' => 20],
@@ -65,6 +67,7 @@ class Quiz extends \yii\db\ActiveRecord
             'inchargename' => 'Inchargename',
             'courseid' => 'Courseid',
             'coursename' => 'Coursename',
+            'Options' => 'Options',
             'starttime' => 'Starttime',
             'endtime' => 'Endtime',
             'totalscore' => 'Totalscore',

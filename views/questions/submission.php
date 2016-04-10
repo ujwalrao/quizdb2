@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'totalscore',
             'obtainedscore',
+            'Options',
             'totalquestions',
             'correctattempted',
             'wrongattempted',

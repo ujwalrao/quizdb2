@@ -62,6 +62,9 @@ use dosamigos\datetimepicker\DateTimePicker;
     <?= $form->field($model, 'department')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'setterid')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'Options')->dropDownList(array(0 => 'No options', 1 => 'Jumble options', 2 => 'Jumble questions', 3 => 'Jumble both options and questions')) ?>
+    
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

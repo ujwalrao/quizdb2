@@ -27,6 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'inchargename',
             'courseid',
             'coursename',
+            'Options',
             // 'starttime',
             // 'endtime',
             // 'department',
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Custom Link',
                 'format'=>'raw',
                 'value' => function($data){
-                    $url = Data::$url."questions/quizattempt&id=".$data['quizid'];
+                    $url = Data::$url."questions/quizattempt&id=".$data['quizid']."&opt=".$data['Options'];
                     return Html::a('Attempt', $url, ['class' => 'btn btn-success']);
                 }
             ] : [],

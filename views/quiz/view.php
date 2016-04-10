@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'inchargename',
             'courseid',
             'coursename',
+            'Options',
             'starttime',
             'endtime',
             'totalscore',

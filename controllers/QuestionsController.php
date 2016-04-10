@@ -63,6 +63,9 @@ class QuestionsController extends Controller
     }
 
 
+
+
+
     public function actionQuizattempt($id)
     {
 
@@ -85,24 +88,29 @@ class QuestionsController extends Controller
             //exit();
             if ($model->validate()) {
                 //$query1=$tem['query1'];
-         //       $query1 = Questions::find()->where(['quizid' => $id]);
-       $query1 = Questions::find()->where(['quizid' => $id]);
-       //         $query1=Data::$query1;
+				//       $query1 = Questions::find()->where(['quizid' => $id]);
+				$query1 = Questions::find()->where(['quizid' => $id]);
+				//         $query1=Data::$query1;
 
-        $pagination = new Pagination([
-            'defaultPageSize' => 1,
-            'totalCount' => $query1->count(),
-        ]);
+				$pagination = new Pagination([
+					'defaultPageSize' => 1,
+					'totalCount' => $query1->count(),
+				]);
+				
 
-            $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+				
+				$query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+
+				
+
 
             
 
         
-    //            $model->attempted=1;
+				//            $model->attempted=1;
 
-//            print_r($model);
-//exit();
+				//            print_r($model);
+				//exit();
 
 
                 $query2=Presentquiz::find()->where(['quizid'=> $id,'questionid'=>$model->questionid,'userid'=>$model->userid])->one();
@@ -114,17 +122,20 @@ class QuestionsController extends Controller
 
                 $date=Quiz::find()->where(['quizid'=>$id])->one();
                 $date=$date['endtime'];
-            return $this->render('quizattempt', [
-                'maindata' => $query1,
-                'model' => $model,
-                'datetime'=>$date,
-                'pagination' => $pagination,
+                
+                
+                
+				return $this->render('quizattempt', [
+					'maindata' => $query1,
+					'model' => $model,
+					'datetime'=>$date,
+					'pagination' => $pagination,
 
-            ]);
+				]);
         
                 // form inputs are valid, do something here
-            }
-           /* if ($result = $model->upload()) {
+			}
+            /* if ($result = $model->upload()) {
                 $query1 = Questions::find()->where(['quizid' => $id])->asArray()->all();
 
 
@@ -144,7 +155,12 @@ class QuestionsController extends Controller
         if(array_key_exists( 'endtest',Yii::$app->request->post())){
                     $query1 = Presentquiz::find()->indexBy('questionid')->where(['quizid' => $id,'userid'=>Yii::$app->user->identity['username']])->asArray()->all();
                     $query2= Questions::find()->indexBy('questionid')->where(['quizid'=>$id])->asArray()->all();
-
+                    
+                    
+            
+                    
+                    
+                    
                     //print_r($query1);
                     //exit();
 
@@ -240,15 +256,28 @@ class QuestionsController extends Controller
 
 
 
-
-            $query1 = Questions::find()->where(['quizid' => $id]);
-
+			// Note this.
+			$con = mysqli_connect("localhost","root","new","quizapp");
+			$sql = "SELECT Options FROM quiz WHERE quizid='$id'";
+			$result = mysqli_query($con,$sql);
+			$row = mysqli_fetch_assoc($result);
+			
+				$opt = $row['Options'];
+			
+			if($opt==2 || $opt==3)
+			{
+            $query1 = Questions::find()->where(['quizid' => $id])->orderBy('RAND()');
+		}else
+		{
+			$query1 = Questions::find()->where(['quizid' => $id]);
+			}
+	//mysqli_close();
 
         $pagination = new Pagination([
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
-
+			
             $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
             //Data::$query1=$query1;
 
@@ -257,7 +286,9 @@ class QuestionsController extends Controller
 
             $date=Quiz::find()->where(['quizid'=>$id])->one();
                 $date=$date['endtime'];
-
+				
+	
+				
             return $this->render('quizattempt', [
                 'maindata' => $query1,
                 'model' => $model,
