@@ -22,14 +22,14 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'txt'],
+            [['image'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png,jpg'],
         ];
     }
 
     public function upload()
     {
         if ($this->validate()) {
-            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            $this->image->saveAs('uploads/' . $this->image->baseName . '.' . $this->image->extension);
             return true;
         } else {
             return false;

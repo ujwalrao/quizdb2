@@ -18,6 +18,8 @@ use yii\data\Pagination;
 use app\models\Results;
 use app\models\Quiz;
 use yii\db\Expression;
+use yii\web\UploadedFile;
+
 
 /**
  * QuestionsController implements the CRUD actions for Questions model.
@@ -290,9 +292,29 @@ class QuestionsController extends Controller
     public function actionCreate($id)
     {
         $model = new Questions();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            
+            if($model->file) {
+                echo "am here";
+                $imagepath = 'uploads/questions';
+                $model->image = $imagepath.rand(10,100).$model->file->name;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+            }
+            else 
+                $model->image="no image";
+            if($model->save()){
+                if($model->file) {
+                    $model->file->saveAs($model->image);
+                    return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+                } 
+                else
+                    return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+                
+            }
+            else
+                echo "not saving";
         } else {
             return $this->render('create', [
                 'id'=>$id,
@@ -300,6 +322,7 @@ class QuestionsController extends Controller
             ]);
         }
     }
+    
     public function actionSubmission($id)
     {
         $query1 = Presentquiz::find()->indexBy('questionid')->where(['quizid' => $id,'userid'=>Yii::$app->user->identity['username']])->asArray()->all();
@@ -403,9 +426,27 @@ class QuestionsController extends Controller
     {
         $model = $this->findModel($quizid, $questionid);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
-        } else {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            
+            if($model->file) {
+                $imagepath = 'uploads/questions';
+                $model->image = $imagepath.rand(10,100).$model->file->name;
+
+            }
+
+            if($model->save()){
+                if($model->file) {
+                    $model->file->saveAs($model->image);
+                    return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+                } 
+                else
+                    return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+                
+            }
+
+        }
+        else {
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -442,4 +483,18 @@ class QuestionsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionDeleteImage($id)
+    {
+        $image = Questions::find()->where(['id' => $id])->one()->image;
+        if($image){
+            if(!unlink($image)){
+                return false;
+            }
+        }
+        $questions = Questions::findOne($id);
+        $questions->image =NULL;
+        $questions->update();
+        return $this->redirect(['update','id'=>$id]);
+    } 
 }
