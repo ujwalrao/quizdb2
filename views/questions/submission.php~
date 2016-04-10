@@ -4,7 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 
+<<<<<<< HEAD
 //$this->title = $queryresults[0]->correct_answer;
+=======
+$this->title = $queryresult->quizname;
+>>>>>>> 787a24740b3781dec55da357a82967b18d24016f
 $this->params['breadcrumbs'][] = ['label' => 'Questions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -12,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+<<<<<<< HEAD
 <?php
  foreach($queryresults as $queryresult){
 ?>
@@ -27,4 +32,19 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 }
 ?>
+=======
+
+    <?= DetailView::widget([
+        'model' => $queryresult,
+        'attributes' => [
+            'totalscore',
+            'obtainedscore',
+            'totalquestions',
+            'correctattempted',
+            'wrongattempted',
+
+        ],
+    ]) ?>
+
+>>>>>>> 787a24740b3781dec55da357a82967b18d24016f
 </div>

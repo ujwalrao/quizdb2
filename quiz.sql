@@ -291,6 +291,10 @@ INSERT INTO `quizsetter` (`setterid`, `about`, `name`, `dept`) VALUES
 CREATE TABLE IF NOT EXISTS `results` (
   `userid` varchar(30) NOT NULL,
   `quizid` int(11) NOT NULL,
+<<<<<<< HEAD
+  `questionid` int(11) NOT NULL,
+=======
+>>>>>>> 787a24740b3781dec55da357a82967b18d24016f
   `quizname` varchar(50) NOT NULL,
   `totalscore` float NOT NULL,
   `obtainedscore` float NOT NULL,
@@ -298,7 +302,11 @@ CREATE TABLE IF NOT EXISTS `results` (
   `wrongattempted` int(11) NOT NULL,
   `totalquestions` int(11) NOT NULL,
   `feedback` text NOT NULL,
+<<<<<<< HEAD
+  PRIMARY KEY (`userid`,`quizid`,`questionid`)
+=======
   PRIMARY KEY (`userid`,`quizid`)
+>>>>>>> 787a24740b3781dec55da357a82967b18d24016f
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
