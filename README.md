@@ -103,7 +103,7 @@ App allows to jumble questions as well as options. While creating a quiz, the qu
 2) jumble only questions
 3) jumble both questions and options
 
-If none of the above three options are choosen, the app by default will not jumble either questions or options.
+If none of the above three options are chosen, the app by default will not jumble either questions or options.
  
 
 
