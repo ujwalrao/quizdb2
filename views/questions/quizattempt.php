@@ -15,6 +15,7 @@ $this->title = 'Questions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+
 <div class="questions-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -23,6 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-5">
+			
+			
 
 
 
@@ -42,7 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
             <?php
             $i=0;
-            //$noofquestions=count($maindata);
+            $noofquestions=count($maindata);
+            echo $noofquestions;
             //$questions=new SplFixedArray($noofquestions);
             
             //for($t=0;$t<$noofquestions;$t++){
@@ -51,38 +55,107 @@ $this->params['breadcrumbs'][] = $this->title;
             //$questions=(array)$questions;
             //shuffle($questions);
             //changing working
+            
+            
+            
             foreach($maindata as $value) {
                 ?>
                 <?php
+            
 
                 $form = ActiveForm::begin(['id' => 'form-question'.$i,'options' => ['autocomplete' => 'off']]);
 
                 ?>
                 <?php //echo (string)($i+1).')'; ?>
-                 <?= $maindata[$i]['questiontext'] ?>
+                
+                 <?= $maindata[$i]['questiontext']?>
+               
 <?php
                 //$model->questionid=$maindata[$i]['questionid'];
                 //echo "a";
+                
+              //$noofquestions=count($maindata);
+              // Number of options are not changing. (Specified)
+              
+            //$questions=new SplFixedArray($noofquestions);
+            
+            //for($t=0;$t<$noofquestions;$t++){
+              //  $questions[$t]=$t;
+           // }
+            //$questions=(array)$questions;
+            //shuffle($questions);
+			if($_GET['opt']==0)
+			{
+				$a = "option1";
+				$b = "option2";
+				$c = "option3";
+				$d = "option4";
+				$e = "option5";
+				
+				
+				}else if($_GET['opt']==1)  {
+					$numbers = range(1, 5);
+					shuffle($numbers);
+					$a = "option".$numbers[0];
+					$b = "option".$numbers[1];
+					$c = "option".$numbers[2];
+					$d = "option".$numbers[3];
+					$e = "option".$numbers[4];
+					
+					}else if($_GET['opt']==2) {
+							$a = "option1";
+							$b = "option2";
+							$c = "option3";
+							$d = "option4";
+							$e = "option5";	
+							//$maindata[$i]['questionid']	
+							//$con = mysqli_connect("","","","");
+							//$noofquestions = count($maindata);
+							//$qnumbers = range(1, $noofquestions);
+							//shuffle($qnumbers);
+							
+															
+						
+						}else if($_GET['opt']==3) {
+							$numbers = range(1, 5);
+							shuffle($numbers);
+							$a = "option".$numbers[0];
+							$b = "option".$numbers[1];
+							$c = "option".$numbers[2];
+							$d = "option".$numbers[3];
+							$e = "option".$numbers[4];							
+							
+							}                
+            
+
+
                 if($maindata[$i]['option1']!=NULL){
                    // echo "a)";
-                     echo $form->field($model, 'option1')->checkbox(['label' => 'a) '. $maindata[$i]['option1']]);
+                     echo $form->field($model, 'option1')->checkbox(['label' => 'a) '. $maindata[$i][$a]]);
                 }
                 if($maindata[$i]['option2']!=NULL){
                     //echo "b)";
-                    echo $form->field($model, 'option2')->checkbox(['label' => 'b) '.$maindata[$i]['option2']]);
+                    echo $form->field($model, 'option2')->checkbox(['label' => 'b) '.$maindata[$i][$b]]);
                 }
                 if($maindata[$i]['option3']!=NULL){
                     //echo "c)";
-                    echo $form->field($model, 'option3')->checkbox(['label' => 'c) '.$maindata[$i]['option3']]);
+                    echo $form->field($model, 'option3')->checkbox(['label' => 'c) '.$maindata[$i][$c]]);
                 }
                 if($maindata[$i]['option4']!=NULL){
                     //echo "d)";
-                    echo $form->field($model, 'option4')->checkbox(['label' => 'd) '.$maindata[$i]['option4']]);
+                    echo $form->field($model, 'option4')->checkbox(['label' => 'd) '.$maindata[$i][$d]]);
                 }
                 if($maindata[$i]['option5']!=NULL){
                    // echo "e)";
-                    echo $form->field($model, 'option5')->checkbox(['label' => 'e) '.$maindata[$i]['option5']]);
-                }
+                    echo $form->field($model, 'option5')->checkbox(['label' => 'e) '.$maindata[$i][$e]]);
+                }	
+				
+
+
+                
+                
+                
+              
  echo Html::activeHiddenInput($model,'questionid',['value'=> $maindata[$i]['questionid']]) ;
  echo Html::activeHiddenInput($model,'userid',['value'=> 'user']) 
                   ;
@@ -100,7 +173,8 @@ if(!isset($quizid)) {
 
 //echo $form->field($model,'questionid',)
 
-  //               echo $form->hiddenField($model,'questionid',['type'=>'hidden','value'=> $maindata[$questions[$i]]['questionid']]);?> 
+  //               echo $form->hiddenField($model,'questionid',['type'=>'hidden','value'=> $maindata[$questions[$i]]['questionid']]);
+  ?> 
                     
                               <div class="form-group">
                     <?= Html::submitButton('submit', ['class' => 'btn btn-primary', 'name' => 'submit-button']) ?>
@@ -109,6 +183,8 @@ if(!isset($quizid)) {
 
                 <?php ActiveForm::end();
                 $i++;
+                
+                
             }
             ?>
             
@@ -118,6 +194,8 @@ if(!isset($quizid)) {
 
 
 </div>
+
+
 
 
 <?php
@@ -131,7 +209,8 @@ if(!isset($quizid)) {
                 <?php ActiveForm::end();
                 
 ?>
-<?= LinkPager::widget(['pagination' => $pagination]) ?>
+ <?=  LinkPager::widget(['pagination' => $pagination]) ?>
+
 <?php
 
            // Pjax::end();
