@@ -96,6 +96,17 @@ return [
 ];
 ```
 
+### Features:
+
+App allows to jumble questions as well as options. While creating a quiz, the quiz setter can can choose between the following options:
+1) Jumble only options
+2) jumble only questions
+3) jumble both questions and options
+
+If none of the above three options are choosen, the app by default will not jumble either questions or options.
+ 
+
+
 **NOTE:** Yii won't create the database for you, this has to be done manually before you can access it.
 
 Also check and edit the other files in the `config/` directory to customize your application.
