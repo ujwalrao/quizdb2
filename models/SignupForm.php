@@ -19,10 +19,10 @@ class SignupForm extends Model
      */
     public function rules()
     {
-        return [/*
+        return [
             ['username', 'filter', 'filter' => 'trim'],
-            */['username', 'required'],
-            /*['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'required'],
+            ['username', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
@@ -33,7 +33,7 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
-*/
+
         ];
     }
 

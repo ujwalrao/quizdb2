@@ -196,7 +196,24 @@ class UsersController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        if($model->role=='admin'){
+            $admin=Admin::find()->where(['adminid' => $model->username])->one();
+            $admin->delete();
+        }
+        else if($model->role=='setter'){
+            $setter=QuizSetter::find()->where(['setterid' => $model->username])->one();
+            $setter->delete();
+
+        }
+        else if($model->role=='student'){
+            $student=Student::find()->where(['userid' => $model->username])->one();
+            $student->delete();
+
+        }
+        $model->delete();
+        //$this->findModel($id)->delete();
+
 
         return $this->redirect(['index']);
     }

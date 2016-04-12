@@ -383,8 +383,8 @@ class QuestionsController extends Controller
 
         $queryresult->userid=Yii::$app->user->identity['username'];
         $queryresult->quizid=$id;
-        $queryresult->save();
-        //print($score);
+        $queryresult->save(false);
+        //print($queryresult->quizname);
         //exit();
         return $this->render('submission', [
             'queryresult' => $queryresult,

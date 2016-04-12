@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        
+
         <?php if(Yii::$app->user->identity['role']!='admin') { ?>
 
         <?= Html::a('Create Quiz', ['create'], ['class' => 'btn btn-success']) ?>

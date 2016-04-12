@@ -123,6 +123,8 @@ class SiteController extends Controller
                 $setter->save();
                 //exit();
             }
+            //print_r($model->email);
+            //exit();
 $model->signup();
 /*
             if ($user = $model->signup()) {
