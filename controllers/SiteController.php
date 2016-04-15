@@ -95,6 +95,9 @@ class SiteController extends Controller
     {
         return $this->render('newquiz');
     }
+    public function actionError(){
+        return $this->render('error');
+    }
     public function actionSignup()
     {
         $model = new SignupForm();

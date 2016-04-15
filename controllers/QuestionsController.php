@@ -65,6 +65,16 @@ class QuestionsController extends Controller
 
     public function actionQuizattempt($id)
     {
+        $username=Yii::$app->user->identity['username'];
+        $tuple=Quiz::find()->where(['quizid'=>$id])->one();
+        if($tuple['mattempt']=='0'&& Results::find()->where(['quizid'=>$id,'userid'=>$username])->count()){
+            return $this->render('site/error', [
+                'id'=>$id,
+                'message'=>"user can only attempt once",
+            ]);
+        }
+
+
 
         $model = new Presentquiz();
         //$model=$this->findModel($id);
@@ -380,14 +390,29 @@ class QuestionsController extends Controller
         $queryresult->correctattempted=$correct;
         $queryresult->wrongattempted=$wrong;
         $queryresult->quizname=$queryquiz->quizname;
-
+        $userid=Yii::$app->user->identity['username'];
         $queryresult->userid=Yii::$app->user->identity['username'];
         $queryresult->quizid=$id;
-        $queryresult->save(false);
+
+        $result=Results::find()->where(['quizid'=>$id,'userid'=>$userid])->one();
+        if(!$result) {
+            $queryresult->save(false);
+        }
+        else{
+
+            $result->totalscore=$queryquiz->totalscore;
+            $result->obtainedscore=$score;
+            $result->totalquestions=$queryquiz->totalquestions;
+            $result->correctattempted=$correct;
+            $result->wrongattempted=$wrong;
+            $result->quizname=$queryquiz->quizname;
+            $result->save(false);
+        }
         //print($queryresult->quizname);
         //exit();
         return $this->render('submission', [
             'queryresult' => $queryresult,
+            'id'=>$id,
         ]);
 
     }

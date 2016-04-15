@@ -63,6 +63,8 @@ use dosamigos\datetimepicker\DateTimePicker;
 
     <?= $form->field($model, 'setterid')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'mattempt')->dropDownList(array(0 => 'Single attempt a Quiz', 1 => 'Multiple attempt a Quiz')) ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

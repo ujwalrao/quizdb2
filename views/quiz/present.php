@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\Data;
+use app\models\Results;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Quizsearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -37,7 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
                 'value' => function($data){
                     $url = Data::$url."questions/quizattempt&id=".$data['quizid'];
-                    return Html::a('Attempt', $url, ['class' => 'btn btn-success']);
+                    $username=Yii::$app->user->identity['username'];
+                    if($data['mattempt']=='0'&& Results::find()->where(['quizid'=>$data['quizid'],'userid'=>$username])->count()){
+                        return "cant attempt";
+                    }
+                    else{
+                        return Html::a('Attempt', $url, ['class' => 'btn btn-success']);
+
+                    }
                 }
             ] : [],
         ],
