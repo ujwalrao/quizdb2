@@ -85,14 +85,14 @@ class QuestionsController extends Controller
 
           if ($model->validate()) {
 
-             $query1 = Questions::find()->where(['quizid' => $id]);
+             $query1 = Questions::find()->where(['quizid' => $id])->all();
 
-              $pagination = new Pagination([
+             /* $pagination = new Pagination([
                   'defaultPageSize' => 1,
                   'totalCount' => $query1->count(),
               ]);
-
-              $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+*/
+              //$query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
               $query2=Presentquiz::find()->where(['quizid'=> $id,'questionid'=>$model->questionid,'userid'=>$model->userid])->one();
               if($query2!=NULL){
@@ -144,7 +144,7 @@ class QuestionsController extends Controller
             if ($model->validate()) {
                 //$query1=$tem['query1'];
          //       $query1 = Questions::find()->where(['quizid' => $id]);
-       $query1 = Questions::find()->where(['quizid' => $id]);
+       $query1 = Questions::find()->where(['quizid' => $id])->all();
        //         $query1=Data::$query1;
 
         $pagination = new Pagination([
@@ -152,7 +152,7 @@ class QuestionsController extends Controller
             'totalCount' => $query1->count(),
         ]);
 
-            $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+            //$query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
 
 
@@ -178,7 +178,7 @@ class QuestionsController extends Controller
                 'model' => $model,
                 'default' => $query2,
                 'datetime'=>$date,
-                'pagination' => $pagination,
+                //'pagination' => $pagination,
 
             ]);
 
@@ -301,15 +301,15 @@ class QuestionsController extends Controller
 
 
 
-            $query1 = Questions::find()->where(['quizid' => $id]);
+            $query1 = Questions::find()->where(['quizid' => $id])->all();
 
-
+/*
         $pagination = new Pagination([
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
-
-            $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+*/
+           // $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
             //Data::$query1=$query1;
 
             //print_r($query1);
@@ -322,7 +322,7 @@ class QuestionsController extends Controller
                 'maindata' => $query1,
                 'model' => $model,
                 'datetime'=>$date,
-                'pagination' => $pagination,
+                //'pagination' => $pagination,
 
             ]);
         }

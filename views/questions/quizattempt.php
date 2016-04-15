@@ -161,7 +161,8 @@ if(!isset($quizid)) {
 
                 <?php ActiveForm::end();
 ?>
-<?= LinkPager::widget(['pagination' => $pagination]) ?>
+
+<?php // LinkPager::widget(['pagination' => $pagination]) ?>
 
 <script type="text/javascript">
 
