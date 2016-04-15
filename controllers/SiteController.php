@@ -2,6 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Changepass;
+use app\models\Changepassword;
+use app\models\User;
+use app\models\Users;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -13,6 +17,7 @@ use app\models\SignupForm;
 use app\models\Admin;
 use app\models\Quizsetter;
 use app\models\Student;
+use app\models\Change;
 class SiteController extends Controller
 {
     public function behaviors()
@@ -54,6 +59,55 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionChangepass()
+    {
+        $model=new Change();
+        if ($model->load(Yii::$app->request->post())) {
+          $username=Yii::$app->user->identity['username'];
+            $user=User::find()->where(['username'=>$username])->one();
+            if($user->validatePassword($model->current)){
+                if(!strcmp($model->new,$model->confirm)) {
+
+                    $user->setPassword($model->new);
+                    $user->save();
+                    Yii::$app->user->logout();
+
+                }
+                else{
+                    print_r("not same pass");
+                    exit();
+                }
+            }
+
+
+
+
+
+/*
+            $hash =Yii::$app->security->generatePasswordHash($model->current);
+            print_r($hash);
+            print_r("    ");
+            $password=Yii::$app->user->identity['password_hash'];
+            print_r($password);
+            exit();
+            if (Yii::$app->getSecurity()->validatePassword($password, $hash)) {
+                print_r("dam");
+                exit();
+            } else {
+                // wrong password
+            }
+*/
+            return $this->goHome();
+
+        }
+        else {
+
+            return $this->render('changepass', [
+                'model' => $model,
+            ]);
+        }
     }
 
     public function actionLogin()

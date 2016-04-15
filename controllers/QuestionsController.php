@@ -68,9 +68,9 @@ class QuestionsController extends Controller
         $username=Yii::$app->user->identity['username'];
         $tuple=Quiz::find()->where(['quizid'=>$id])->one();
         if($tuple['mattempt']=='0'&& Results::find()->where(['quizid'=>$id,'userid'=>$username])->count()){
-            return $this->render('site/error', [
-                'id'=>$id,
-                'message'=>"user can only attempt once",
+            return $this->render('//site/error', [
+                'message'=>"User can only attempt a quiz once",
+                'name'=>"Unauthorized for students",
             ]);
         }
 
