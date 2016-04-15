@@ -62,6 +62,54 @@ class QuestionsController extends Controller
         ]);
     }
 
+    public function actionAjaxattempt($id)
+    {
+      //return 'cjeck';
+      $model = new Presentquiz();
+
+      //$model=$this->findModel($id);
+
+      if ($model->load(Yii::$app->request->post())) {
+          $temp=Yii::$app->request->post();
+          $temp = $temp['Presentquiz'];
+          $model->option1 = $temp['option1'];
+          $model->option2 = $temp['option2'];
+          $model->option3 = $temp['option3'];
+          $model->option4 = $temp['option4'];
+          $model->option5 = $temp['option5'];
+
+          $model->userid=Yii::$app->user->identity['username'];
+          $model->attempted=1;
+          $model->quizid=$id;
+          $model->questionid=$temp['questionid'];
+
+          if ($model->validate()) {
+
+             $query1 = Questions::find()->where(['quizid' => $id]);
+
+              $pagination = new Pagination([
+                  'defaultPageSize' => 1,
+                  'totalCount' => $query1->count(),
+              ]);
+
+              $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+
+              $query2=Presentquiz::find()->where(['quizid'=> $id,'questionid'=>$model->questionid,'userid'=>$model->userid])->one();
+              if($query2!=NULL){
+                  $query2->delete();
+              }
+
+              $model->save();
+
+          }
+      }
+
+      $out['status'] = "success";
+      $out['val'] = '';
+      json_encode($out,TRUE);
+
+    }
+
 
     public function actionQuizattempt($id)
     {
@@ -78,7 +126,7 @@ class QuestionsController extends Controller
 
         $model = new Presentquiz();
         //$model=$this->findModel($id);
-        
+
         if ($model->load(Yii::$app->request->post())) {
             $temp=Yii::$app->request->post();
             $temp = $temp['Presentquiz'];
@@ -87,7 +135,7 @@ class QuestionsController extends Controller
             $model->option3 = $temp['option3'];
             $model->option4 = $temp['option4'];
             $model->option5 = $temp['option5'];
-            
+
             $model->userid=Yii::$app->user->identity['username'];
             $model->attempted=1;
             $model->quizid=$id;
@@ -106,9 +154,9 @@ class QuestionsController extends Controller
 
             $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
-            
 
-        
+
+
     //            $model->attempted=1;
 
 //            print_r($model);
@@ -121,17 +169,19 @@ class QuestionsController extends Controller
                 }
 
                 $model->save();
+                $query2=Presentquiz::find()->where(['quizid'=> $id,'questionid'=>$model->questionid,'userid'=>$model->userid])->one();
 
                 $date=Quiz::find()->where(['quizid'=>$id])->one();
                 $date=$date['endtime'];
             return $this->render('quizattempt', [
                 'maindata' => $query1,
                 'model' => $model,
+                'default' => $query2,
                 'datetime'=>$date,
                 'pagination' => $pagination,
 
             ]);
-        
+
                 // form inputs are valid, do something here
             }
            /* if ($result = $model->upload()) {
@@ -158,7 +208,7 @@ class QuestionsController extends Controller
                     //print_r($query1);
                     //exit();
 
-                    
+
                    $score=0;
                    $correct=0;
                    $wrong=0;
@@ -239,7 +289,7 @@ class QuestionsController extends Controller
                 return $this->render('submission', [
                 'queryresult' => $queryresult,
             ]);
-        
+
 
 
 
