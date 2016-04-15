@@ -96,7 +96,7 @@ class QuestionsController extends Controller
             if ($model->validate()) {
                 //$query1=$tem['query1'];
          //       $query1 = Questions::find()->where(['quizid' => $id]);
-       $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
+       $query1 = Questions::find()->where(['quizid' => $id]);
        //         $query1=Data::$query1;
 
         $pagination = new Pagination([
@@ -251,7 +251,7 @@ class QuestionsController extends Controller
 
 
 
-            $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
+            $query1 = Questions::find()->where(['quizid' => $id]);
 
 
         $pagination = new Pagination([
