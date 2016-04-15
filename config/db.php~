@@ -4,6 +4,10 @@ return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=quizapp',
     'username' => 'root',
-    'password' => 'gitavani',
+<<<<<<< HEAD
+    'password' => 'geethavani',
+=======
+    'password' => 'root',
+>>>>>>> 93f7564092ca9c126f5dbb28ac59163128d59b6c
     'charset' => 'utf8',
 ];
