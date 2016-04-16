@@ -16,6 +16,8 @@ use app\models\SignupForm;
 use app\models\Student;
 use app\models\Admin;
 use app\models\Quizsetter;
+use app\models\UploadFile;
+
 /**
  * UsersController implements the CRUD actions for Users model.
  */
@@ -50,10 +52,11 @@ class UsersController extends Controller
 
         $model = new SignupForm();
         $model->username=$temp[0];
+
         $model->email=$temp[1];
         $model->password=$temp[2];
         $model->role=$temp[3];
-
+        $model->signup();
         if($temp[3]=='admin'){
                 $admin=new Admin();
                 $admin->adminid=$temp[0];
@@ -75,7 +78,7 @@ class UsersController extends Controller
                 $setter->save();
                 //exit();
             }
-            $model->signup();
+
             /*
                         if ($user = $model->signup()) {
                             if (Yii::$app->getUser()->login($user)) {
@@ -96,7 +99,7 @@ class UsersController extends Controller
 
 
 
-            $model = new UploadForm();
+            $model = new UploadFile();
 
             if (Yii::$app->request->isPost) {
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');

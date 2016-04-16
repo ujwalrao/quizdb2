@@ -68,6 +68,11 @@ $this->params['breadcrumbs'][] = $this->title;
                  <?= $maindata[$i]['questiontext'] ?>
 <?php
                 //$model->questionid=$maindata[$i]['questionid'];
+                echo "<br>";
+                if($maindata[$i]['image']!= "no image") {
+                    echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$maindata[$i]['image'].'" width="90px">&nbsp; &nbsp; &nbsp; ';
+        
+                }
                 //echo "a";
                 if($maindata[$i]['option1']!=NULL){
                    // echo "a)";
@@ -114,6 +119,8 @@ $this->params['breadcrumbs'][] = $this->title;
                    else
                      echo $form->field($model, 'option5')->checkbox(["id" => "option5" ,'label' => 'e) '. $maindata[$i]['option5']]);
                 }
+
+    
  echo Html::activeHiddenInput($model,'questionid',['value'=> $maindata[$i]['questionid']]) ;
  echo Html::activeHiddenInput($model,'userid',['value'=> 'user'])
                   ;
