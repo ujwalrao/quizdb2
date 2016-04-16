@@ -27,7 +27,9 @@ class QuestionForm extends Model
      */
     public function rules()
     {
+
         return [
+        array('image', 'file','types'=>'jpg, gif, png', 'allowEmpty'=>true, 'on'=>'insert,update'),
         ];
     }
 

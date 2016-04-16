@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <div class="questions-form">
 
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
 
     <?php // echo  $form->field($model, 'quizid')->textInput() ?>
     <?= Html::activeHiddenInput($model,'quizid',['value'=> $id]) ;?>
@@ -20,7 +20,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'questiontext')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'file')->fileInput() ?>
+    <?php 
+    if($model->image) {
+        echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$model->image.'" width="90px">&nbsp; &nbsp; &nbsp; ';
+        
+    }
+    ?>
 
     <?= $form->field($model, 'noofoptions')->textInput() ?>
 
@@ -49,6 +55,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'saq')->textInput() ?>
 
     <?= $form->field($model, 'essay')->textInput() ?>
+
+
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

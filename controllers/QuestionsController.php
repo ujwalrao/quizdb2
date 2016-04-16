@@ -18,6 +18,8 @@ use yii\data\Pagination;
 use app\models\Results;
 use app\models\Quiz;
 use yii\db\Expression;
+use yii\web\UploadedFile;
+
 
 /**
  * QuestionsController implements the CRUD actions for Questions model.
@@ -85,7 +87,7 @@ class QuestionsController extends Controller
 
           if ($model->validate()) {
 
-             $query1 = Questions::find()->where(['quizid' => $id])->all();
+             $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'))->all();
 
              /* $pagination = new Pagination([
                   'defaultPageSize' => 1,
@@ -144,14 +146,14 @@ class QuestionsController extends Controller
             if ($model->validate()) {
                 //$query1=$tem['query1'];
          //       $query1 = Questions::find()->where(['quizid' => $id]);
-       $query1 = Questions::find()->where(['quizid' => $id])->all();
+       $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'))->all();
        //         $query1=Data::$query1;
-
+/*
         $pagination = new Pagination([
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
-
+*/
             //$query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
 
@@ -301,7 +303,7 @@ class QuestionsController extends Controller
 
 
 
-            $query1 = Questions::find()->where(['quizid' => $id])->all();
+            $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'))->all();
 
 /*
         $pagination = new Pagination([
@@ -350,9 +352,29 @@ class QuestionsController extends Controller
     public function actionCreate($id)
     {
         $model = new Questions();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            
+            if($model->file) {
+                echo "am here";
+                $imagepath = 'uploads/questions';
+                $model->image = $imagepath.rand(10,100).$model->file->name;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+            }
+            else 
+                $model->image="no image";
+            if($model->save()){
+                if($model->file) {
+                    $model->file->saveAs($model->image);
+                    return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+                } 
+                else
+                    return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+                
+            }
+            else
+                echo "not saving";
         } else {
             return $this->render('create', [
                 'id'=>$id,
@@ -360,6 +382,7 @@ class QuestionsController extends Controller
             ]);
         }
     }
+    
     public function actionSubmission($id)
     {
         $query1 = Presentquiz::find()->indexBy('questionid')->where(['quizid' => $id,'userid'=>Yii::$app->user->identity['username']])->asArray()->all();
@@ -478,9 +501,27 @@ class QuestionsController extends Controller
     {
         $model = $this->findModel($quizid, $questionid);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
-        } else {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            
+            if($model->file) {
+                $imagepath = 'uploads/questions';
+                $model->image = $imagepath.rand(10,100).$model->file->name;
+
+            }
+
+            if($model->save()){
+                if($model->file) {
+                    $model->file->saveAs($model->image);
+                    return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+                } 
+                else
+                    return $this->redirect(['view', 'quizid' => $model->quizid, 'questionid' => $model->questionid]);
+                
+            }
+
+        }
+        else {
             return $this->render('update', [
                 'model' => $model,
             ]);
@@ -517,4 +558,22 @@ class QuestionsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
+
+
+    public function actionDeleteImage($id)
+    {
+        $image = Questions::find()->where(['id' => $id])->one()->image;
+        if($image){
+            if(!unlink($image)){
+                return false;
+            }
+        }
+        $questions = Questions::findOne($id);
+        $questions->image =NULL;
+        $questions->update();
+        return $this->redirect(['update','id'=>$id]);
+    } 
 }
+
