@@ -17,7 +17,11 @@ use app\models\SignupForm;
 use app\models\Admin;
 use app\models\Quizsetter;
 use app\models\Student;
+
 use app\models\Change;
+
+Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/uploads/';
+
 class SiteController extends Controller
 {
     public function behaviors()
@@ -196,6 +200,29 @@ $model->signup();
         return $this->render('signup', [
             'model' => $model,
         ]);
+    }
+
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // $fileupload->saveAs('uploads/' . $fileupload->baseName . '.' . $fileupload->extension);
+                // file is uploaded successfully
+                if($model->save())
+                {
+                    $image->saveAs($path);
+                    // return $this->redirect(['view', 'id'=>$model->_id]);
+                } else {
+                    // error in saving model
+                }
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
     }
 
 }

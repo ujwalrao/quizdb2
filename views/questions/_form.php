@@ -20,6 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'questiontext')->textarea(['rows' => 6]) ?>
 
+
     <?= $form->field($model, 'file')->fileInput() ?>
     <?php 
     if($model->image) {
@@ -27,6 +28,7 @@ use yii\widgets\ActiveForm;
         
     }
     ?>
+
 
     <?= $form->field($model, 'noofoptions')->textInput() ?>
 

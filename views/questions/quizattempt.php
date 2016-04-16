@@ -141,7 +141,10 @@ if(!isset($quizid)) {
   //               echo $form->hiddenField($model,'questionid',['type'=>'hidden','value'=> $maindata[$questions[$i]]['questionid']]);?>
 
                               <div class="form-group">
+
                     <?= Html::submitButton('submit', ['class' => 'btn btn-primary', 'name' => 'submit-button', 'onclick'=>'send();']) ?>
+
+
 
                 </div>
 
@@ -162,11 +165,16 @@ if(!isset($quizid)) {
             $form = ActiveForm::begin(['id' => 'form-submit','action'=>'index.php?r=questions/submission&id='.$quizid]);
               ?>
               <div class="form-group" id="endtest">
+
                     <?= Html::submitButton('endtest', ['class' => 'btn btn-primary', 'name' => 'endtest' ]) ?>
+
+
+
 
                 </div>
 
                 <?php ActiveForm::end();
+
 ?>
 
 <?php // LinkPager::widget(['pagination' => $pagination]) ?>
