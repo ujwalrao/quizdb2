@@ -19,6 +19,7 @@ use Yii;
  * @property string $department
  * @property string $setterid
  * @property integer $mattempt
+ * @property integer $option
  *
  * @property Comments[] $comments
  * @property Futurequestions[] $futurequestions
@@ -44,10 +45,10 @@ class Quiz extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['quizname', 'inchargename', 'courseid', 'coursename', 'starttime', 'endtime', 'totalscore', 'totalquestions', 'department', 'setterid', 'mattempt'], 'required'],
+            [['quizname', 'inchargename', 'courseid', 'coursename', 'starttime', 'endtime', 'totalscore', 'totalquestions', 'department', 'setterid', 'mattempt', 'option'], 'required'],
             [['starttime', 'endtime'], 'safe'],
             [['totalscore'], 'number'],
-            [['totalquestions', 'mattempt'], 'integer'],
+            [['totalquestions', 'mattempt', 'option'], 'integer'],
             [['quizname', 'inchargename'], 'string', 'max' => 50],
             [['courseid', 'department'], 'string', 'max' => 20],
             [['coursename'], 'string', 'max' => 40],
@@ -60,19 +61,6 @@ class Quiz extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
-
-            // $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
-            // $diff = abs(strtotime($date1) - strtotime($model -> starttime));
-            // //echo $diff;
-            // $remtime = \russ666\widgets\Countdown::widget([
-            //     'datetime' => date('Y-m-d H:i:s', time()+60*60*5+30*60+$diff),
-            //     'format' => '%D:%H:%M:%S',
-            //     // 'events' => [
-            //     //     'finish' => 'function(){ document.getElementById("form-submit").submit(); }',
-            //     // ],
-            // ]);
-            // //Pjax::begin();
-
         return [
             'quizid' => 'Quizid',
             'quizname' => 'Quizname',
@@ -80,13 +68,13 @@ class Quiz extends \yii\db\ActiveRecord
             'courseid' => 'Courseid',
             'coursename' => 'Coursename',
             'starttime' => 'Starttime',
-            // 'remtime' => 'remtime',
             'endtime' => 'Endtime',
             'totalscore' => 'Totalscore',
             'totalquestions' => 'Totalquestions',
             'department' => 'Department',
             'setterid' => 'Setterid',
             'mattempt' => 'Mattempt',
+            'option' => 'Option',
         ];
     }
 
@@ -111,7 +99,7 @@ class Quiz extends \yii\db\ActiveRecord
      */
     public function getPresentquizzes()
     {
-        return $this->hasMany(Presentquiz::className(), ['quizid' => 'quizid'])->orderBy('starttime');
+        return $this->hasMany(Presentquiz::className(), ['quizid' => 'quizid']);
     }
 
     /**

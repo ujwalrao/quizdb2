@@ -7,7 +7,8 @@ use yii\widgets\Pjax;
 use app\models\user;
 use app\models\Presentquiz;
 use \russ666\widgets\Countdown;
-use Yii;
+//use Yii;
+use app\models\Results;
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model \app\models\QuestionForm */
@@ -30,8 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php
             $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
-            $diff = abs(strtotime($date1) - strtotime($datetime));
-            //echo $diff;
+            $diff = max(0,(strtotime($datetime) -strtotime($date1)));
+            /*echo strtotime($date1);
+            echo " ";
+            echo strtotime($datetime);
+            echo " ";*/
+
             echo \russ666\widgets\Countdown::widget([
                 'datetime' => date('Y-m-d H:i:s', time()+60*60*5+30*60+$diff),
                 'format' => '%D:%H:%M:%S',
@@ -44,7 +49,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
             <?php
             $i=0;
-            //$noofquestions=count($maindata);
+/*
+            $array=range(0,$number-1);
+
+            if($result->order!=NULL){
+                $array=unserialize($result->order);
+            }
+            else {
+                shuffle($array);
+                $result->order=serialize($array);
+
+
+                if(!$result->save(false)){
+                    print_r("err canot");
+                    exit();
+                }
+            }
+*/
+
             //$questions=new SplFixedArray($noofquestions);
 
             //for($t=0;$t<$noofquestions;$t++){
@@ -56,13 +78,66 @@ $this->params['breadcrumbs'][] = $this->title;
             foreach($maindata as $value) {
                 ?>
                 <?php
+
+
+                if($option==0)
+                {
+                    $a = "option1";
+                    $b = "option2";
+                    $c = "option3";
+                    $d = "option4";
+                    $e = "option5";
+
+
+                }else if($option==1)  {
+                    $numbers = range(1, 5);
+                    shuffle($numbers);
+                    $a = "option".$numbers[0];
+                    $b = "option".$numbers[1];
+                    $c = "option".$numbers[2];
+                    $d = "option".$numbers[3];
+                    $e = "option".$numbers[4];
+
+                }else if($option==2) {
+                    $a = "option1";
+                    $b = "option2";
+                    $c = "option3";
+                    $d = "option4";
+                    $e = "option5";
+                    //$maindata[$i]['questionid']
+                    //$con = mysqli_connect("","","","");
+                    //$noofquestions = count($maindata);
+                    //$qnumbers = range(1, $noofquestions);
+                    //shuffle($qnumbers);
+
+
+
+                }else if($option==3) {
+                    $numbers = range(1, 5);
+                    shuffle($numbers);
+                    $a = "option".$numbers[0];
+                    $b = "option".$numbers[1];
+                    $c = "option".$numbers[2];
+                    $d = "option".$numbers[3];
+                    $e = "option".$numbers[4];
+
+                }
+
+
+
+
+
+
+
+
+
                 $default = Presentquiz::find()->where(['quizid'=> $maindata[$i]['quizid'],'questionid'=>$maindata[$i]['questionid'],'userid'=>Yii::$app->user->identity['username']])->one();
                 $form = ActiveForm::begin(['id' => 'form-question'.$i,'enableAjaxValidation'=>false,'options' => ['autocomplete' => 'off','onsubmit'=>'return false;','onkeypress'=>'if(event.keyCode==13){send();}']]);
-                $o1 = ($default!=NULL&&$default['option1']==1) ? 1 : 0;
-                $o2 = ($default!=NULL&&$default['option2']==1) ? 1 : 0;
-                $o3 = ($default!=NULL&&$default['option3']==1) ? 1 : 0;
-                $o4 = ($default!=NULL&&$default['option4']==1) ? 1 : 0;
-                $o5 = ($default!=NULL&&$default['option5']==1) ? 1 : 0;
+                $o1 = ($default!=NULL&&$default[$a]==1) ? 1 : 0;
+                $o2 = ($default!=NULL&&$default[$b]==1) ? 1 : 0;
+                $o3 = ($default!=NULL&&$default[$c]==1) ? 1 : 0;
+                $o4 = ($default!=NULL&&$default[$d]==1) ? 1 : 0;
+                $o5 = ($default!=NULL&&$default[$e]==1) ? 1 : 0;
                 ?>
                 <?php //echo (string)($i+1).')'; ?>
                  <?= $maindata[$i]['questiontext'] ?>
@@ -74,50 +149,50 @@ $this->params['breadcrumbs'][] = $this->title;
         
                 }
                 //echo "a";
-                if($maindata[$i]['option1']!=NULL){
+                if($maindata[$i][$a]!=NULL){
                    // echo "a)";
                   if($o1) {
-                    $model->option1 = true;
-                    echo $form->field($model, 'option1')->checkbox(['checked' =>"",'label' => 'a)'. $maindata[$i]['option1']]);
+                    $model->{$a} = true;
+                    echo $form->field($model, $a)->checkbox(['checked' =>"",'label' => 'a)'. $maindata[$i][$a]]);
                   }
                   else
-                    echo $form->field($model, 'option1')->checkbox(["id" => "option1" ,'label' => 'a) '. $maindata[$i]['option1']]);
+                    echo $form->field($model, $a)->checkbox(["id" => $a ,'label' => 'a) '. $maindata[$i][$a]]);
                 }
-                if($maindata[$i]['option2']!=NULL){
+                if($maindata[$i][$b]!=NULL){
                     //echo "b)";
                     if($o2) {
-                      $model->option2 = true;
-                      echo $form->field($model, 'option2')->checkbox(['checked' =>"",'label' => 'b)'. $maindata[$i]['option2']]);
+                      $model->{$b} = true;
+                      echo $form->field($model, $b)->checkbox(['checked' =>"",'label' => 'b)'. $maindata[$i][$b]]);
                     }
                     else
-                      echo $form->field($model, 'option2')->checkbox(["id" => "option2" ,'label' => 'b) '. $maindata[$i]['option2']]);
+                      echo $form->field($model, $b)->checkbox(["id" => $b ,'label' => 'b) '. $maindata[$i][$b]]);
                 }
-                if($maindata[$i]['option3']!=NULL){
+                if($maindata[$i][$c]!=NULL){
                     //echo "c)";
                     if($o3) {
-                      $model->option3 = true;
-                      echo $form->field($model, 'option3')->checkbox(['checked' =>"",'label' => 'c)'. $maindata[$i]['option3']]);
+                      $model->{$c} = true;
+                      echo $form->field($model, $c)->checkbox(['checked' =>"",'label' => 'c)'. $maindata[$i][$c]]);
                     }
                     else
-                      echo $form->field($model, 'option3')->checkbox(["id" => "option3" ,'label' => 'c) '. $maindata[$i]['option3']]);
+                      echo $form->field($model, $c)->checkbox(["id" => $c ,'label' => 'c) '. $maindata[$i][$c]]);
                 }
-                if($maindata[$i]['option4']!=NULL){
+                if($maindata[$i][$d]!=NULL){
                     //echo "d)";
                     if($o4) {
-                      $model->option4 = true;
-                      echo $form->field($model, 'option4')->checkbox(['checked' =>"",'label' => 'd)'. $maindata[$i]['option4']]);
+                      $model->{$d} = true;
+                      echo $form->field($model, $d)->checkbox(['checked' =>"",'label' => 'd)'. $maindata[$i][$d]]);
                     }
                     else
-                      echo $form->field($model, 'option4')->checkbox(["id" => "option4" ,'label' => 'd) '. $maindata[$i]['option4']]);
+                      echo $form->field($model, $d)->checkbox(["id" => $d ,'label' => 'd) '. $maindata[$i][$d]]);
                 }
-                if($maindata[$i]['option5']!=NULL){
+                if($maindata[$i][$e]!=NULL){
                    // echo "e)";
                    if($o5) {
-                     $model->option5 = true;
-                     echo $form->field($model, 'option5')->checkbox(['checked' =>"",'label' => 'e)'. $maindata[$i]['option5']]);
+                     $model->{$e} = true;
+                     echo $form->field($model, $e)->checkbox(['checked' =>"",'label' => 'e)'. $maindata[$i][$e]]);
                    }
                    else
-                     echo $form->field($model, 'option5')->checkbox(["id" => "option5" ,'label' => 'e) '. $maindata[$i]['option5']]);
+                     echo $form->field($model, $e)->checkbox(["id" => $e ,'label' => 'e) '. $maindata[$i][$e]]);
                 }
 
     
@@ -125,6 +200,7 @@ $this->params['breadcrumbs'][] = $this->title;
  echo Html::activeHiddenInput($model,'userid',['value'=> 'user'])
                   ;
 echo Html::activeHiddenInput($model,'quizid',['value'=> $maindata[$i]['quizid']]) ;
+
 if(!isset($quizid)) {
     $quizid = $maindata[$i]['quizid'];
 }
@@ -160,7 +236,6 @@ if(!isset($quizid)) {
 
 </div>
 
-
 <?php
             $form = ActiveForm::begin(['id' => 'form-submit','action'=>'index.php?r=questions/submission&id='.$quizid]);
               ?>
@@ -176,8 +251,8 @@ if(!isset($quizid)) {
                 <?php ActiveForm::end();
 
 ?>
+<?= LinkPager::widget(['pagination' => $pagination]) ?>
 
-<?php // LinkPager::widget(['pagination' => $pagination]) ?>
 
 <script type="text/javascript">
 
@@ -208,4 +283,6 @@ success:function(data){
 <?php
 
             Pjax::end();
+
+
             ?>

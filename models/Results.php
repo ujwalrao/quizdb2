@@ -16,6 +16,7 @@ use Yii;
  * @property integer $wrongattempted
  * @property integer $totalquestions
  * @property string $feedback
+ * @property string $order
  *
  * @property User $user
  */
@@ -35,12 +36,13 @@ class Results extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['userid', 'quizid', 'quizname', 'totalscore', 'obtainedscore', 'correctattempted', 'wrongattempted', 'totalquestions', 'feedback'], 'required'],
+            [['userid', 'quizid', 'quizname', 'totalscore', 'obtainedscore', 'correctattempted', 'wrongattempted', 'totalquestions', 'feedback', 'order'], 'required'],
             [['quizid', 'correctattempted', 'wrongattempted', 'totalquestions'], 'integer'],
             [['totalscore', 'obtainedscore'], 'number'],
             [['feedback'], 'string'],
             [['userid'], 'string', 'max' => 30],
-            [['quizname'], 'string', 'max' => 50]
+            [['quizname'], 'string', 'max' => 50],
+            [['order'], 'string', 'max' => 255]
         ];
     }
 
@@ -59,6 +61,7 @@ class Results extends \yii\db\ActiveRecord
             'wrongattempted' => 'Wrongattempted',
             'totalquestions' => 'Totalquestions',
             'feedback' => 'Feedback',
+            'order' => 'Order',
         ];
     }
 

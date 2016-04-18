@@ -19,6 +19,12 @@ use app\models\Data;
         $url=Data::$url."quiz/present";
         $this->title = 'My Yii Application';
         echo Html::a('Present Quizzes', $url, ['class' => 'btn btn-success']);
+        echo "<br><br><br>";
+        
+        echo Html::a('Past Quizzes', $url, ['class' => 'btn btn-success']);
+        echo "<br><br><br>";
+        echo Html::a('Future Quizzes', $url, ['class' => 'btn btn-success']);
+
 
         ?>
     </div>

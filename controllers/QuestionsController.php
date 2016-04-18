@@ -87,14 +87,14 @@ class QuestionsController extends Controller
 
           if ($model->validate()) {
 
-             $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'))->all();
+             $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
 
-             /* $pagination = new Pagination([
+              $pagination = new Pagination([
                   'defaultPageSize' => 1,
                   'totalCount' => $query1->count(),
               ]);
-*/
-              //$query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+
+              $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
               $query2=Presentquiz::find()->where(['quizid'=> $id,'questionid'=>$model->questionid,'userid'=>$model->userid])->one();
               if($query2!=NULL){
@@ -124,10 +124,16 @@ class QuestionsController extends Controller
             ]);
         }
 
+        $result=Results::find()->where(['userid'=>$username,'quizid'=>$id])->one();
+
 
 
         $model = new Presentquiz();
         //$model=$this->findModel($id);
+
+
+
+
 
         if ($model->load(Yii::$app->request->post())) {
             $temp=Yii::$app->request->post();
@@ -146,15 +152,17 @@ class QuestionsController extends Controller
             if ($model->validate()) {
                 //$query1=$tem['query1'];
          //       $query1 = Questions::find()->where(['quizid' => $id]);
-       $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'))->all();
+                $query1 = (object) json_decode(base64_decode($_POST['info']));
+
+                //$query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
        //         $query1=Data::$query1;
-/*
+
         $pagination = new Pagination([
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
-*/
-            //$query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+
+            $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
 
 
@@ -175,14 +183,25 @@ class QuestionsController extends Controller
 
                 $date=Quiz::find()->where(['quizid'=>$id])->one();
                 $date=$date['endtime'];
+                $datetime=$date;
+
+                $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+                $diff = max(0,(strtotime($datetime) -strtotime($date1)));
+                if($diff==0){
+                    return $this->actionSubmission($id);
+                }
             return $this->render('quizattempt', [
                 'maindata' => $query1,
                 'model' => $model,
                 'default' => $query2,
                 'datetime'=>$date,
-                //'pagination' => $pagination,
-
+                'option' => $tuple['options'],
+                'pagination' => $pagination,
+                'result' =>$result,
+                'number'=>$number,
             ]);
+
+
 
                 // form inputs are valid, do something here
             }
@@ -303,28 +322,45 @@ class QuestionsController extends Controller
 
 
 
-            $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'))->all();
+            $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
 
-/*
+            $exchange=base64_encode(json_encode($query1));
+
+            $number=count($query1->all());
+
         $pagination = new Pagination([
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
-*/
-           // $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
+
+            $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
             //Data::$query1=$query1;
+            //print_r($query1);
+            //exit();
 
             //print_r($query1);
    //         exit();
 
             $date=Quiz::find()->where(['quizid'=>$id])->one();
                 $date=$date['endtime'];
+                $datetime=$date;
+
+
+            $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+            $diff = max(0,(strtotime($datetime) -strtotime($date1)));
+            if($diff==0){
+                return $this->actionSubmission($id);
+            }
+            $result->order=$exchange;
 
             return $this->render('quizattempt', [
                 'maindata' => $query1,
                 'model' => $model,
                 'datetime'=>$date,
-                //'pagination' => $pagination,
+                'option' => $tuple['option'],
+                'pagination' => $pagination,
+                'result' =>$result,
+                'number'=>$number,
 
             ]);
         }
@@ -341,6 +377,7 @@ class QuestionsController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($quizid, $questionid),
+            'id'=>$quizid,
         ]);
     }
 
@@ -385,6 +422,7 @@ class QuestionsController extends Controller
     
     public function actionSubmission($id)
     {
+        print_r($id);
         $query1 = Presentquiz::find()->indexBy('questionid')->where(['quizid' => $id,'userid'=>Yii::$app->user->identity['username']])->asArray()->all();
         $query2= Questions::find()->indexBy('questionid')->where(['quizid'=>$id])->asArray()->all();
 
@@ -524,6 +562,7 @@ class QuestionsController extends Controller
         else {
             return $this->render('update', [
                 'model' => $model,
+                //'id'=>$quizid,
             ]);
         }
     }

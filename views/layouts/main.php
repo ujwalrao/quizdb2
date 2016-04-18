@@ -11,6 +11,10 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
+<!--
+<style type="text/css">
+    body { background: #c0c0d8 !important; } /* Adding !important forces the browser to overwrite the default style applied by Bootstrap */
+</style> -->
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -30,6 +34,7 @@ AppAsset::register($this);
         'brandLabel' => 'Quizapp',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
+
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
@@ -37,17 +42,33 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Changepass', 'url' => ['/site/changepass']],
-            //['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']] :
-                [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
-                    'url' => ['/site/logout'],
-                    'linkOptions' => ['data-method' => 'post']
+
+            [
+                'label' => 'Account',
+                'items' => [
+                    ['label' => 'Changepass', 'url' => ['/site/changepass']],
+                    '<li class="divider"></li>',
+                    Yii::$app->user->isGuest ?
+                        ['label' => 'Login', 'url' => ['/site/login']] :
+                        [
+                            'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                            'url' => ['/site/logout'],
+                            'linkOptions' => ['data-method' => 'post']
+                        ],
+                    '<li class="divider"></li>',
+                    ['label' => 'Change profile ', 'url' => ['/site/form']],
+
+
+
                 ],
-        ],
+            ],
+
+
+
+            //['label' => 'Contact', 'url' => ['/site/contact']],
+                    ],
     ]);
+
     NavBar::end();
     ?>
 

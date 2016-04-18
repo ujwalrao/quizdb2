@@ -20,6 +20,7 @@ use app\models\Student;
 
 use app\models\Change;
 
+
 Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/uploads/';
 
 class SiteController extends Controller
@@ -198,6 +199,25 @@ $model->signup();
         }
 
         return $this->render('signup', [
+            'model' => $model,
+        ]);
+    }
+    public function actionForm(){
+        $model = new Student();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                $username=Yii::$app->user->identity['username'];
+                $model->userid=$username;
+                $model->save();
+                return $this->render('index', [
+                    'model' => $model,
+                ]);
+
+            }
+        }
+
+        return $this->render('form', [
             'model' => $model,
         ]);
     }
