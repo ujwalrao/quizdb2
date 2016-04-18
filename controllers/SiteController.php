@@ -30,10 +30,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout','changepass','newquiz','signup','form','upload',],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        //'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -84,6 +84,9 @@ class SiteController extends Controller
                     print_r("not same pass");
                     exit();
                 }
+            }
+            else{
+
             }
 
 

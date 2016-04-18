@@ -15,7 +15,7 @@ use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 ?>
 
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(['id'=>'changeform']); ?>
 
 <?= $form->field($model, 'current')->passwordInput() ?>
 

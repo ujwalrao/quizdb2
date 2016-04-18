@@ -22,6 +22,9 @@ class Change extends Model
         return [
 
             [['current', 'new' ,'confirm'], 'required'],
+            ['new', 'compare', 'compareAttribute'=>'confirm'],
+
+            [['current','new','confirm'], 'string', 'min' => 6],
             /*
             [['current', 'new' ,'confirm'], 'password'],
             // define validation rules here

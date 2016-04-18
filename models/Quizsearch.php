@@ -40,7 +40,54 @@ class Quizsearch extends Quiz
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+
+
+
+
+    public function searchpast($params)
+    {
+
+        if(Yii::$app->user->identity['role']=='student') {
+            $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+
+            $query = Quiz::find()->where(['<=', 'starttime', $date1]);
+        }
+
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'quizid' => $this->quizid,
+            'starttime' => $this->starttime,
+            'endtime' => $this->endtime,
+            'totalscore' => $this->totalscore,
+            'totalquestions' => $this->totalquestions,
+        ]);
+
+        $query->andFilterWhere(['like', 'quizname', $this->quizname])
+            ->andFilterWhere(['like', 'inchargename', $this->inchargename])
+            ->andFilterWhere(['like', 'courseid', $this->courseid])
+            ->andFilterWhere(['like', 'coursename', $this->coursename])
+            ->andFilterWhere(['like', 'department', $this->department])
+            ->andFilterWhere(['like', 'setterid', $this->setterid]);
+
+        return $dataProvider;
+    }
+
+
+
+
+public function search($params)
     {
         if(Yii::$app->user->identity['role']=='admin') {
             $query = Quiz::find();
@@ -49,7 +96,9 @@ class Quizsearch extends Quiz
             $query = Quiz::find()->where(['setterid'=>Yii::$app->user->identity['username']]);
         }
         if(Yii::$app->user->identity['role']=='student') {
-            $query = Quiz::find();
+            $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+
+            $query = Quiz::find()->where(['>=', 'starttime', $date1]);
         }
 
 

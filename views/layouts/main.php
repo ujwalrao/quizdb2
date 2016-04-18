@@ -41,22 +41,23 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+
             ['label' => 'Home', 'url' => ['/site/index']],
+            Yii::$app->user->isGuest ?
+                ['label' => 'Login', 'url' => ['/site/login']] :
 
             [
                 'label' => 'Account',
                 'items' => [
-                    ['label' => 'Changepass', 'url' => ['/site/changepass']],
+                    ['label' => 'Change Password', 'url' => ['/site/changepass']],
+
                     '<li class="divider"></li>',
-                    Yii::$app->user->isGuest ?
-                        ['label' => 'Login', 'url' => ['/site/login']] :
-                        [
-                            'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+                    ['label' => 'Change profile ', 'url' => ['/site/form']],
+                    '<li class="divider"></li>',
+                    ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                             'url' => ['/site/logout'],
                             'linkOptions' => ['data-method' => 'post']
                         ],
-                    '<li class="divider"></li>',
-                    ['label' => 'Change profile ', 'url' => ['/site/form']],
 
 
 

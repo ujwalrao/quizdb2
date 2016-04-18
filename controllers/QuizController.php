@@ -89,6 +89,17 @@ class QuizController extends Controller
            'dataProvider' => $dataProvider,
        ]);
    }
+    public function actionPast()
+    {
+        $searchModel = new Quizsearch();
+        $dataProvider = $searchModel->searchpast(Yii::$app->request->queryParams);
+
+        return $this->render('past', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
 
     public function actionCreate()
     {
