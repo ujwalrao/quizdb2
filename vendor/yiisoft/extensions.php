@@ -93,4 +93,13 @@ return array (
       '@ruskid/csvimporter' => $vendorDir . '/ruskid/yii2-csv-importer',
     ),
   ),
+  'scotthuangzl/yii2-google-chart' => 
+  array (
+    'name' => 'scotthuangzl/yii2-google-chart',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@scotthuangzl/googlechart' => $vendorDir . '/scotthuangzl/yii2-google-chart',
+    ),
+  ),
 );

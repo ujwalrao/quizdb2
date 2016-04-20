@@ -49,8 +49,13 @@ class Quizsearch extends Quiz
 
         if(Yii::$app->user->identity['role']=='student') {
             $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+//            print_r(gettype($date1));
 
-            $query = Quiz::find()->where(['<=', 'starttime', $date1]);
+            $query = Quiz::find()->where(['<', 'endtime', $date1]);
+           /* $query = Quiz::find()->where(['quizid'=>2])->one();
+            print_r($query['endtime']);
+            exit();
+*/
         }
 
 
@@ -98,7 +103,7 @@ public function search($params)
         if(Yii::$app->user->identity['role']=='student') {
             $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
 
-            $query = Quiz::find()->where(['>=', 'starttime', $date1]);
+            $query = Quiz::find()->where(['>', 'endtime', $date1]);
         }
 
 

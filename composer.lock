@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "533e062d6c53954e5649e0ab67303712",
-    "content-hash": "9923acc87799ea0b0ae2ea1beafcb67d",
+    "hash": "9719d155f21bb66c4bb2dc09c8d9b318",
+    "content-hash": "25eee45008fae923e6cd773c0f531bc3",
     "packages": [
         {
             "name": "2amigos/yii2-date-time-picker-widget",
@@ -548,6 +548,50 @@
                 "yii2"
             ],
             "time": "2015-03-04 10:12:10"
+        },
+        {
+            "name": "scotthuangzl/yii2-google-chart",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ScottHuangZL/yii2-google-chart.git",
+                "reference": "6bd68466030af8a931b34d2ceacf0a498da5b9a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ScottHuangZL/yii2-google-chart/zipball/6bd68466030af8a931b34d2ceacf0a498da5b9a0",
+                "reference": "6bd68466030af8a931b34d2ceacf0a498da5b9a0",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "scotthuangzl\\googlechart\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Scott Huang",
+                    "email": "zhiliang.huang@gmail.com"
+                }
+            ],
+            "description": "A wraper for google chart",
+            "keywords": [
+                "extension",
+                "google chart",
+                "hzl",
+                "scott huang",
+                "widget",
+                "yii2"
+            ],
+            "time": "2015-06-11 12:13:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -1204,7 +1248,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "ruskid/yii2-csv-importer": 20
+        "ruskid/yii2-csv-importer": 20,
+        "scotthuangzl/yii2-google-chart": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

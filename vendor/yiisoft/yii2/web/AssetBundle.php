@@ -88,7 +88,9 @@ class AssetBundle extends Object
      *
      * Note that only a forward slash "/" should be used as directory separator.
      */
-    public $js = [];
+    public $js = [
+
+    ];
     /**
      * @var array list of CSS files that this bundle contains. Each CSS file can be specified
      * in one of the three formats as explained in [[js]].

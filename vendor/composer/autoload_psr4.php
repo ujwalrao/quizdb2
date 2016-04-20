@@ -15,6 +15,7 @@ return array(
     'yii\\codeception\\' => array($vendorDir . '/yiisoft/yii2-codeception'),
     'yii\\bootstrap\\' => array($vendorDir . '/yiisoft/yii2-bootstrap'),
     'yii\\' => array($vendorDir . '/yiisoft/yii2'),
+    'scotthuangzl\\googlechart\\' => array($vendorDir . '/scotthuangzl/yii2-google-chart'),
     'russ666\\widgets\\' => array($vendorDir . '/russ666/yii2-countdown'),
     'ruskid\\csvimporter\\' => array($vendorDir . '/ruskid/yii2-csv-importer'),
     'dosamigos\\datetimepicker\\' => array($vendorDir . '/2amigos/yii2-date-time-picker-widget/src'),

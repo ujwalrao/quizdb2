@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Enrollment;
 use Yii;
 use app\models\Quiz;
 use app\models\Quizsearch;
@@ -9,7 +10,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
+use app\models\Enroll;
+use app\models\Data;
 /**
  * QuizController implements the CRUD actions for Quiz model.
  */
@@ -145,6 +147,31 @@ class QuizController extends Controller
 
         return $this->redirect(['index']);
     }
+    public function actionEnrollment($id)
+    {
+        $model = new Enroll();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $url = Data::$url."questions/quizattempt&id=".$id;
+            $quiz=Quiz::find()->where(['quizid'=>$id])->one();
+            $temp=Yii::$app->request->post();
+            $temp = $temp['Enroll'];
+            if(strcmp($quiz->enrollmentkey,$temp['enrollmentkey'])){
+                print_r("err");
+                exit();
+            }
+            else{
+                return $this->redirect($url,302);
+
+            }
+        } else {
+            return $this->render('enrollment', [
+                'model' => $model,
+            ]);
+        }
+
+    }
+
 
     /**
      * Finds the Quiz model based on its primary key value.

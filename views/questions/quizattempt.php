@@ -145,6 +145,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 //$model->questionid=$maindata[$i]['questionid'];
                 echo "<br>";
                 if($maindata[$i]['image']!= "no image") {
+
                     echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$maindata[$i]['image'].'" width="90px">&nbsp; &nbsp; &nbsp; ';
         
                 }
@@ -251,7 +252,7 @@ if(!isset($quizid)) {
                 <?php ActiveForm::end();
 
 ?>
-<?= LinkPager::widget(['pagination' => $pagination]) ?>
+<?= LinkPager::widget(['pagination' => $pagination,'ajaxUpdate'=>true]) ?>
 
 
 <script type="text/javascript">

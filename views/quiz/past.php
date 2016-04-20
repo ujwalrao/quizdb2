@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'inchargename',
             'courseid',
             'coursename',
-            'starttime',
+            //'starttime',
             // 'remtime',
             // 'endtime',
             // 'department',
@@ -43,13 +43,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function($data){
                     $url = Data::$url."questions/quizattempt&id=".$data['quizid'];
                     $username=Yii::$app->user->identity['username'];
-                    if($data['mattempt']=='0'&& Results::find()->where(['quizid'=>$data['quizid'],'userid'=>$username])->count()){
-                        return "cant attempt";
-                    }
-                    else{
-                        return Html::a('Attempt', $url, ['class' => 'btn btn-success']);
 
-                    }
+                        return Html::a('Virtual Test', $url, ['class' => 'btn btn-success']);
+
+
                 }
             ] : [],
         ],

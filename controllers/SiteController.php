@@ -206,13 +206,28 @@ $model->signup();
         ]);
     }
     public function actionForm(){
-        $model = new Student();
+        $username=Yii::$app->user->identity['username'];
+       // $model = new Student();
+
+        $model=Student::find()->where(['userid'=>$username])->one();
+
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                $username=Yii::$app->user->identity['username'];
-                $model->userid=$username;
-                $model->save();
+                $temp=Yii::$app->request->post();
+
+$temp=$temp['Student'];
+
+
+                $model->about=$temp['about'];
+
+                $model->rollno=$temp['rollno'];
+                $model->name=$temp['name'];
+                $model->stream=$temp['stream'];
+                $model->program=$temp['program'];
+
+                $model->save(false);
+
                 return $this->render('index', [
                     'model' => $model,
                 ]);

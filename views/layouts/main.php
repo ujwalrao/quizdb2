@@ -22,7 +22,8 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+
+    <title><?= Html::encode('Quizapp') ?></title>
     <?php $this->head() ?>
 </head>
 <body>
@@ -52,7 +53,9 @@ AppAsset::register($this);
                     ['label' => 'Change Password', 'url' => ['/site/changepass']],
 
                     '<li class="divider"></li>',
-                    ['label' => 'Change profile ', 'url' => ['/site/form']],
+                    ['label' => 'Change Details ', 'url' => ['/site/form']],
+                    '<li class="divider"></li>',
+                    ['label' => 'Pofile ', 'url' => ['/site/form']],
                     '<li class="divider"></li>',
                     ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                             'url' => ['/site/logout'],

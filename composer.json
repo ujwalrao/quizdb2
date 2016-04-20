@@ -21,7 +21,8 @@
         "yiisoft/yii2-jui": "^2.0",
         "2amigos/yii2-date-time-picker-widget": "~1.0",
 	"russ666/yii2-countdown": "*",
-        "ruskid/yii2-csv-importer": "dev-master"
+        "ruskid/yii2-csv-importer": "dev-master",
+        "scotthuangzl/yii2-google-chart": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

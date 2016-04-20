@@ -49,6 +49,7 @@ use app\models\Data;
             dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
             ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
             fugiat nulla pariatur.</p>
+        <?php $url=Data::$url."quiz/past";?>
 
         <p><a class="btn btn-default" href=<?php echo $url ?>>Past Quizzes &raquo;</a></p>
     </div>

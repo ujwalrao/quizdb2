@@ -1,10 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use app\models\Data;
 use app\models\Results;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\Quizsearch */
@@ -19,6 +21,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
+    <p>
+
+    </p>
+
+
+    <?php
+            Modal::begin([
+                'header'=>'<h4>shipment</h4>',
+                'id'=>'modal',
+                'size'=>'modal-lg',
+            ]);
+    echo "<div id='modalContent'></div>";
+    Modal::end();
+    ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -64,13 +80,22 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>'Custom Link',
                 'format'=>'raw',
                 'value' => function($data){
-                    $url = Data::$url."questions/quizattempt&id=".$data['quizid'];
+                    //$url = Data::$url."questions/quizattempt&id=".$data['quizid'];
+                    $url= Data::$url."quiz/enrollment&id=".$data['quizid'];
                     $username=Yii::$app->user->identity['username'];
                     if($data['mattempt']=='0'&& Results::find()->where(['quizid'=>$data['quizid'],'userid'=>$username])->count()){
                         return "cant attempt";
                     }
                     else{
-                        return Html::a('Attempt', $url, ['class' => 'btn btn-success']);
+    //return Html::button('Attempt',['value'=>$url,'class'=>'btn btn-success','id'=>'modalButton']);
+                        Modal::begin([
+                            'header'=>'<h4>shipment</h4>',
+                            'id'=>'modal',
+                            'size'=>'modal-lg',
+                        ]);
+                        echo "<div id='modalContent'></div>";
+                        Modal::end();
+                       return Html::a('Attempt', $url, ['class' => 'btn btn-success','id'=>'modalButton',]);
 
                     }
                 }

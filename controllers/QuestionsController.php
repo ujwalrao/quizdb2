@@ -87,13 +87,15 @@ class QuestionsController extends Controller
 
           if ($model->validate()) {
 
-             $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
+             $query1 = Questions::find()->where(['quizid' => $id]);
 
               $pagination = new Pagination([
                   'defaultPageSize' => 1,
                   'totalCount' => $query1->count(),
               ]);
-
+              //print_r($pagination->offset);
+              //exit();
+              $pagination->setPage(1);
               $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
               $query2=Presentquiz::find()->where(['quizid'=> $id,'questionid'=>$model->questionid,'userid'=>$model->userid])->one();
@@ -152,16 +154,18 @@ class QuestionsController extends Controller
             if ($model->validate()) {
                 //$query1=$tem['query1'];
          //       $query1 = Questions::find()->where(['quizid' => $id]);
-                $query1 = (object) json_decode(base64_decode($_POST['info']));
+                //$query1 = (object) json_decode(base64_decode($_POST['info']));
 
-                //$query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
+                $query1 = Questions::find()->where(['quizid' => $id]);
        //         $query1=Data::$query1;
 
         $pagination = new Pagination([
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
-
+ // print_r($pagination->offset);
+   //             exit();
+$pagination->setPage(1);
             $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
 
@@ -322,7 +326,7 @@ class QuestionsController extends Controller
 
 
 
-            $query1 = Questions::find()->where(['quizid' => $id])->orderBy(new Expression('rand()'));
+            $query1 = Questions::find()->where(['quizid' => $id]);
 
             $exchange=base64_encode(json_encode($query1));
 
@@ -332,7 +336,9 @@ class QuestionsController extends Controller
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
-
+            //print_r($pagination->offset);
+            //exit();
+$pagination->setPage(1);
             $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
             //Data::$query1=$query1;
             //print_r($query1);
@@ -562,7 +568,7 @@ class QuestionsController extends Controller
         else {
             return $this->render('update', [
                 'model' => $model,
-                //'id'=>$quizid,
+                'id'=>$quizid,
             ]);
         }
     }

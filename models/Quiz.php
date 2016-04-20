@@ -20,6 +20,7 @@ use Yii;
  * @property string $setterid
  * @property integer $mattempt
  * @property integer $option
+ * @property string $enrollmentkey
  *
  * @property Comments[] $comments
  * @property Futurequestions[] $futurequestions
@@ -45,12 +46,12 @@ class Quiz extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['quizname', 'inchargename', 'courseid', 'coursename', 'starttime', 'endtime', 'totalscore', 'totalquestions', 'department', 'setterid', 'mattempt', 'option'], 'required'],
+            [['quizname', 'inchargename', 'courseid', 'coursename', 'starttime', 'endtime', 'totalscore', 'totalquestions', 'department', 'setterid', 'mattempt', 'option', ], 'required'],
             [['starttime', 'endtime'], 'safe'],
             [['totalscore'], 'number'],
             [['totalquestions', 'mattempt', 'option'], 'integer'],
             [['quizname', 'inchargename'], 'string', 'max' => 50],
-            [['courseid', 'department'], 'string', 'max' => 20],
+            [['courseid', 'department', 'enrollmentkey'], 'string', 'max' => 20],
             [['coursename'], 'string', 'max' => 40],
             [['setterid'], 'string', 'max' => 30]
         ];
@@ -75,6 +76,7 @@ class Quiz extends \yii\db\ActiveRecord
             'setterid' => 'Setterid',
             'mattempt' => 'Mattempt',
             'option' => 'Option',
+            'enrollmentkey' => 'Enrollmentkey',
         ];
     }
 
