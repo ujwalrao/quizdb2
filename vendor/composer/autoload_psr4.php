@@ -19,6 +19,7 @@ return array(
     'russ666\\widgets\\' => array($vendorDir . '/russ666/yii2-countdown'),
     'ruskid\\csvimporter\\' => array($vendorDir . '/ruskid/yii2-csv-importer'),
     'dosamigos\\datetimepicker\\' => array($vendorDir . '/2amigos/yii2-date-time-picker-widget/src'),
+    'dosamigos\\ckeditor\\' => array($vendorDir . '/2amigos/yii2-ckeditor-widget/src'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'Faker\\' => array($vendorDir . '/fzaninotto/faker/src/Faker'),
 );

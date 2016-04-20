@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Changepass;
 use app\models\Changepassword;
+use app\models\Results;
 use app\models\User;
 use app\models\Users;
 use Yii;
@@ -132,7 +133,14 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+    public function actionProfile(){
 
+        $username=Yii::$app->user->identity['username'];
+        $result=Results::find()->where(['userid'=>$username])->all();
+        return $this->render('profile', [
+        'result'=>$result,
+        ]);
+    }
     public function actionLogout()
     {
         Yii::$app->user->logout();

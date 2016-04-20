@@ -95,7 +95,7 @@ class QuestionsController extends Controller
               ]);
               //print_r($pagination->offset);
               //exit();
-              $pagination->setPage(1);
+              //$pagination->setPage(1);
               $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
               $query2=Presentquiz::find()->where(['quizid'=> $id,'questionid'=>$model->questionid,'userid'=>$model->userid])->one();
@@ -165,7 +165,7 @@ class QuestionsController extends Controller
         ]);
  // print_r($pagination->offset);
    //             exit();
-$pagination->setPage(1);
+//$pagination->setPage(1);
             $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
 
 
@@ -338,7 +338,7 @@ $pagination->setPage(1);
         ]);
             //print_r($pagination->offset);
             //exit();
-$pagination->setPage(1);
+//$pagination->setPage(1);
             $query1 = $query1->offset($pagination->offset)->limit($pagination->limit)->all();
             //Data::$query1=$query1;
             //print_r($query1);

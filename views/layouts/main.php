@@ -55,7 +55,7 @@ AppAsset::register($this);
                     '<li class="divider"></li>',
                     ['label' => 'Change Details ', 'url' => ['/site/form']],
                     '<li class="divider"></li>',
-                    ['label' => 'Pofile ', 'url' => ['/site/form']],
+                    ['label' => 'Pofile ', 'url' => ['/site/profile']],
                     '<li class="divider"></li>',
                     ['label' => 'Logout (' . Yii::$app->user->identity->username . ')',
                             'url' => ['/site/logout'],

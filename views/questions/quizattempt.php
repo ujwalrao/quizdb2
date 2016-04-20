@@ -252,7 +252,7 @@ if(!isset($quizid)) {
                 <?php ActiveForm::end();
 
 ?>
-<?= LinkPager::widget(['pagination' => $pagination,'ajaxUpdate'=>true]) ?>
+<?= LinkPager::widget(['pagination' => $pagination]) ?>
 
 
 <script type="text/javascript">

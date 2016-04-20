@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use dosamigos\ckeditor\CKEditor;
 /* @var $this yii\web\View */
 /* @var $model app\models\Questions */
 /* @var $form yii\widgets\ActiveForm */
@@ -18,8 +18,13 @@ use yii\widgets\ActiveForm;
 
     <?php echo $form->field($model, 'questionid')->textInput() ?>
 
-    <?= $form->field($model, 'questiontext')->textarea(['rows' => 6]) ?>
+    <?php //echo $form->field($model, 'questiontext')->textarea(['rows' => 6]) ?>
 
+    <?= $form->field($model, 'questiontext')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'full' ]) ?>
+
+    
 
     <?= $form->field($model, 'file')->fileInput() ?>
     <?php 
