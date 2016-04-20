@@ -20,6 +20,7 @@ use app\models\Quizsetter;
 use app\models\Student;
 
 use app\models\Change;
+use app\models\Data;
 
 
 Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/uploads/';
@@ -65,6 +66,14 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+    public function actionResetpass($username)
+    {
+        $user=User::find()->where(['username'=>$username])->one();
+        $user->setPassword($username);
+        $user->save();
+        $url=Data::$url."users/index";
+        return $this->redirect($url);
     }
 
     public function actionChangepass()

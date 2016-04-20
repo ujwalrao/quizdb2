@@ -40,6 +40,14 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'username',
             'role',
+            [
+                'label'=>'Change Password',
+                'format'=>'raw',
+                'value' => function($data){
+                    $url = Data::$url."site/resetpass&username=".$data['username'];
+                    return Html::a('Reset Password', $url, ['class' => 'btn btn-success']);
+                }
+            ],
             //'auth_key',
             //'password_hash',
             // 'password_reset_token',

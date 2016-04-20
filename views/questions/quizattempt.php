@@ -1,3 +1,4 @@
+
 <?php
 
 use yii\helpers\Html;
@@ -18,6 +19,15 @@ $this->title = 'Questions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
 <div class="questions-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -49,23 +59,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ?>
             <?php
             $i=0;
-/*
-            $array=range(0,$number-1);
-
-            if($result->order!=NULL){
-                $array=unserialize($result->order);
-            }
-            else {
-                shuffle($array);
-                $result->order=serialize($array);
+            $num=$pagination->totalCount;
+            $array=range(0,$num-1);
+            //print_r($result);
+            //exit();
+            if($option==2 || $option==3) {
 
 
-                if(!$result->save(false)){
-                    print_r("err canot");
-                    exit();
+                if ($result->order != NULL) {
+                    $array = unserialize($result->order);
+                } else {
+                    shuffle($array);
+                    $result->order = serialize($array);
+
+
+                    if (!$result->save(false)) {
+                        print_r("err canot");
+                        exit();
+                    }
                 }
             }
-*/
+             //print_r($array);
+            //exit();
+
 
             //$questions=new SplFixedArray($noofquestions);
 
@@ -252,7 +268,24 @@ if(!isset($quizid)) {
                 <?php ActiveForm::end();
 
 ?>
-<?= LinkPager::widget(['pagination' => $pagination]) ?>
+
+<div class="container">
+    <?php
+        $j=$pagination->totalCount;
+        $k=1;
+    echo '<ul class="pagination">';
+        while($k<=$j){
+            //print_r($pagination->createUrl($k));
+            echo "<li><a href=".$pagination->createUrl($array[$k-1]).">$k</a></li>";
+            $k++;
+        }
+    echo '</ul>';
+
+    ?>
+
+    </div>
+<?php
+//echo  LinkPager::widget(['pagination' => $pagination]) ?>
 
 
 <script type="text/javascript">

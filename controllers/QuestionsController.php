@@ -117,6 +117,7 @@ class QuestionsController extends Controller
 
     public function actionQuizattempt($id)
     {
+
         $username=Yii::$app->user->identity['username'];
         $tuple=Quiz::find()->where(['quizid'=>$id])->one();
         if($tuple['mattempt']=='0'&& Results::find()->where(['quizid'=>$id,'userid'=>$username])->count()){
@@ -127,6 +128,12 @@ class QuestionsController extends Controller
         }
 
         $result=Results::find()->where(['userid'=>$username,'quizid'=>$id])->one();
+        if($result==NULL){
+            $result=new Results();
+            $result->userid=$username;
+            $result->quizid=$id;
+            $result->save(false);
+        }
 
 
 
@@ -163,6 +170,7 @@ class QuestionsController extends Controller
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
+
  // print_r($pagination->offset);
    //             exit();
 //$pagination->setPage(1);
@@ -336,6 +344,7 @@ class QuestionsController extends Controller
             'defaultPageSize' => 1,
             'totalCount' => $query1->count(),
         ]);
+
             //print_r($pagination->offset);
             //exit();
 //$pagination->setPage(1);
@@ -357,7 +366,7 @@ class QuestionsController extends Controller
             if($diff==0){
                 return $this->actionSubmission($id);
             }
-            $result->order=$exchange;
+
 
             return $this->render('quizattempt', [
                 'maindata' => $query1,

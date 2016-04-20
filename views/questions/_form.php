@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use dosamigos\ckeditor\CKEditor;
+//use dosamigos\ckeditor\CKEditor;
+use mihaildev\ckeditor\CKEditor;
 /* @var $this yii\web\View */
 /* @var $model app\models\Questions */
 /* @var $form yii\widgets\ActiveForm */
@@ -20,11 +21,14 @@ use dosamigos\ckeditor\CKEditor;
 
     <?php //echo $form->field($model, 'questiontext')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'questiontext')->widget(CKEditor::className(), [
-        'options' => ['rows' => 6],
-        'preset' => 'full' ]) ?>
-
-    
+    <?php
+    echo $form->field($model, 'questiontext')->widget(CKEditor::className(),[
+    'editorOptions' => [
+    'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+    'inline' => false, //по умолчанию false
+    ],
+    ]);
+?>
 
     <?= $form->field($model, 'file')->fileInput() ?>
     <?php 
