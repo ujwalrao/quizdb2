@@ -43,6 +43,7 @@ class Questions extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $file;
     public function rules()
     {
         return [
@@ -51,6 +52,8 @@ class Questions extends \yii\db\ActiveRecord
             [['questiontext', 'solution'], 'string'],
             [['weight1', 'weight2', 'weight3', 'weight4', 'weight5'], 'number'],
             [['image'], 'string', 'max' => 100],
+            [['file'],'safe'],
+            [['file'],'file', 'extensions'=>'jpg,png'],
             [['option1', 'option2', 'option3', 'option4', 'option5'], 'string', 'max' => 50]
         ];
     }
@@ -64,6 +67,7 @@ class Questions extends \yii\db\ActiveRecord
             'quizid' => 'Quizid',
             'questionid' => 'Questionid',
             'questiontext' => 'Questiontext',
+            'file' => 'Photo',
             'image' => 'Image',
             'noofoptions' => 'Noofoptions',
             'option1' => 'Option1',

@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $i=0;
             $num=$pagination->totalCount;
-            $array=range(0,$num-1);
+            //$array=range(0,$num-1);
             //print_r($result);
             //exit();
 
@@ -222,7 +222,7 @@ $form = ActiveForm::begin(['id' => 'form-submit','action'=>'index.php?r=virtual/
     while($k<=$j){
         //print_r($pagination->createUrl($k));
 
-        echo "<li><a href=".$pagination->createUrl($array[$k-1]).">$k</a></li>";
+        echo "<li><a href=".$pagination->createUrl($k-1).">$k</a></li>";
         $k++;
     }
     echo '</ul>';

@@ -593,7 +593,7 @@ class QuestionsController extends Controller
     {
         $this->findModel($quizid, $questionid)->delete();
 
-        return $this->redirect(['index']);
+        return $this->actionIndex($quizid);
     }
 
     /**

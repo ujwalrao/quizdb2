@@ -1,3 +1,4 @@
+
 <?php
 
 use yii\helpers\Html;
@@ -206,6 +207,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 </div>
+<?php
+$c=$pagination->getpage()+1;
+echo "Solution: <br><br>";
+$inc=1;
+$char=range('a', 'e');
+while($inc<=5){
+    $name='weight'.$inc;
+    if($queryques[$c][$name]>0){
+        $nameop='option'.$inc;
+        echo $char[$inc-1].')  ';
+        echo $queryques[$c][$nameop]."<br><br>";
+    }
+    $inc++;
+}
+echo $queryques[$c]['solution'];
+?>
 
 
 <div class="container">
@@ -219,10 +236,12 @@ $this->params['breadcrumbs'][] = $this->title;
     while($k<=$j){
         //print_r($pagination->createUrl($k));
 
-        echo "<li><a href=".$pagination->createUrl($array[$k-1]).">$k</a></li>";
+        echo "<li><a href=".$pagination->createUrl($k-1).">$k</a></li>";
+
         $k++;
     }
     echo '</ul>';
+
 
     ?>
 
