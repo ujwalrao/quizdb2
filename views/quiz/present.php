@@ -88,13 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     else{
     //return Html::button('Attempt',['value'=>$url,'class'=>'btn btn-success','id'=>'modalButton']);
-                        Modal::begin([
-                            'header'=>'<h4>shipment</h4>',
-                            'id'=>'modal',
-                            'size'=>'modal-lg',
-                        ]);
-                        echo "<div id='modalContent'></div>";
-                        Modal::end();
+
                        return Html::a('Attempt', $url, ['class' => 'btn btn-success','id'=>'modalButton',]);
 
                     }

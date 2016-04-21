@@ -49,6 +49,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 }
             ] : [],
+            Yii::$app->user->identity['role']=='student' ?[
+                'label'=>'Custom Link',
+                'format'=>'raw',
+                'value' => function($data){
+                    $url = Data::$url."questions/quizattempt&id=".$data['quizid'];
+                    $username=Yii::$app->user->identity['username'];
+
+                    return Html::a('Virtual Test', $url, ['class' => 'btn btn-success']);
+
+
+                }
+            ] : [],
+
         ],
     ]); ?>
     <?php Pjax::end() ?>

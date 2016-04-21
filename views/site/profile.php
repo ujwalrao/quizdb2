@@ -13,6 +13,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
+use Yii;
 use scotthuangzl\googlechart\GoogleChart;
 $analysis=array(array('Task', 'Percentage in quiz'));
 
@@ -50,9 +51,11 @@ exit();
 
 <div class="col-sm-5">
 <?php
-echo GoogleChart::widget(array('visualization' => 'LineChart',
-    'data' => $analysis,
-    'options' => array('title' => 'My Daily Activity')));
+if(Yii::$app->user->identity['role']=='student') {
+    echo GoogleChart::widget(array('visualization' => 'LineChart',
+        'data' => $analysis,
+        'options' => array('title' => 'My Daily Activity')));
+}
 
 ?>
 

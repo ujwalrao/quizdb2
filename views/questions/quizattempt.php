@@ -27,6 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <style>
+        ul.pagination li a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        <</style>
 </head>
 <div class="questions-index">
 
@@ -271,11 +277,15 @@ if(!isset($quizid)) {
 
 <div class="container">
     <?php
-        $j=$pagination->totalCount;
+    $value = Presentquiz::find()->where(['quizid'=> $quizid,'userid'=>Yii::$app->user->identity['username']])->all();
+   // print_r($value[0]['attempted']);
+   // exit();
+    $j=$pagination->totalCount;
         $k=1;
     echo '<ul class="pagination">';
         while($k<=$j){
             //print_r($pagination->createUrl($k));
+
             echo "<li><a href=".$pagination->createUrl($array[$k-1]).">$k</a></li>";
             $k++;
         }
@@ -289,7 +299,10 @@ if(!isset($quizid)) {
 
 
 <script type="text/javascript">
+function activate()
+{
 
+}
 function send()
  {
 

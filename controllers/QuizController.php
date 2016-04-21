@@ -150,10 +150,15 @@ class QuizController extends Controller
     public function actionEnrollment($id)
     {
         $model = new Enroll();
+        $url = Data::$url."questions/quizattempt&id=".$id;
 
+        $quiz=Quiz::find()->where(['quizid'=>$id])->one();
+
+        if($quiz->enrollmentkey==NULL){
+            return $this->redirect($url,302);
+
+        }
         if ($model->load(Yii::$app->request->post())) {
-            $url = Data::$url."questions/quizattempt&id=".$id;
-            $quiz=Quiz::find()->where(['quizid'=>$id])->one();
             $temp=Yii::$app->request->post();
             $temp = $temp['Enroll'];
             if(strcmp($quiz->enrollmentkey,$temp['enrollmentkey'])){
