@@ -38,10 +38,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
             Yii::$app->user->identity['role']=='student' ?[
-                'label'=>'Custom Link',
+                //'label'=>'Custom Link',
                 'format'=>'raw',
                 'value' => function($data){
-                    $url = Data::$url."questions/quizattempt&id=".$data['quizid'];
+                    $url = Data::$url."virtual/virtualattempt&id=".$data['quizid'];
                     $username=Yii::$app->user->identity['username'];
 
                         return Html::a('Virtual Test', $url, ['class' => 'btn btn-success']);
@@ -50,13 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ] : [],
             Yii::$app->user->identity['role']=='student' ?[
-                'label'=>'Custom Link',
+                //'label'=>'Custom Link',
                 'format'=>'raw',
                 'value' => function($data){
-                    $url = Data::$url."questions/quizattempt&id=".$data['quizid'];
+                    $url = Data::$url."results/index&id=".$data['quizid'];
                     $username=Yii::$app->user->identity['username'];
 
-                    return Html::a('Virtual Test', $url, ['class' => 'btn btn-success']);
+                    return Html::a('View Leaderboard', $url, ['class' => 'btn btn-success']);
 
 
                 }

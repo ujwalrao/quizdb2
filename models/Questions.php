@@ -25,6 +25,7 @@ use Yii;
  * @property integer $maq
  * @property integer $saq
  * @property integer $essay
+ * @property string $solution
  *
  * @property Comments[] $comments
  * @property Quiz $quiz
@@ -42,18 +43,15 @@ class Questions extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public $file;
     public function rules()
     {
         return [
-            [['quizid', 'questionid', 'questiontext', 'image', 'noofoptions', 'option1', 'option2', 'option3', 'option4', 'option5', 'weight1', 'weight2', 'weight3', 'weight4', 'weight5', 'maq', 'saq', 'essay'], 'required'],
+            [['quizid', 'questionid', 'questiontext', 'image', 'noofoptions', 'option1', 'option2', 'option3', 'option4', 'option5', 'weight1', 'weight2', 'weight3', 'weight4', 'weight5', 'maq', 'saq', 'essay', 'solution'], 'required'],
             [['quizid', 'questionid', 'noofoptions', 'maq', 'saq', 'essay'], 'integer'],
-            [['questiontext'], 'string'],
+            [['questiontext', 'solution'], 'string'],
             [['weight1', 'weight2', 'weight3', 'weight4', 'weight5'], 'number'],
             [['image'], 'string', 'max' => 100],
-            [['option1', 'option2', 'option3', 'option4', 'option5'], 'string', 'max' => 50],
-            [['file'],'safe'],
-            [['file'],'file', 'extensions'=>'jpg,png'],
+            [['option1', 'option2', 'option3', 'option4', 'option5'], 'string', 'max' => 50]
         ];
     }
 
@@ -66,8 +64,7 @@ class Questions extends \yii\db\ActiveRecord
             'quizid' => 'Quizid',
             'questionid' => 'Questionid',
             'questiontext' => 'Questiontext',
-            
-            'file' => 'Photo',
+            'image' => 'Image',
             'noofoptions' => 'Noofoptions',
             'option1' => 'Option1',
             'option2' => 'Option2',
@@ -82,6 +79,7 @@ class Questions extends \yii\db\ActiveRecord
             'maq' => 'Maq',
             'saq' => 'Saq',
             'essay' => 'Essay',
+            'solution' => 'Solution',
         ];
     }
 

@@ -67,6 +67,8 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field($model, 'essay')->textInput() ?>
 
+    <?= $form->field($model, 'solution')->textInput() ?>
+
 
 
     <div class="form-group">
