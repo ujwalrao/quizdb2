@@ -41,6 +41,35 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'totalquestions',
             // 'department',
             // 'setterid',
+            Yii::$app->user->identity['role']=='setter'?[
+                'label'=>'Custom Link',
+                'format'=>'raw',
+                'value' => function($data){
+                    $url = Data::$url."quiz/analysis&id=".$data['quizid'];
+                    $datetime=$data['endtime'];
+
+
+                    $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+                    $diff = max(0,(strtotime($datetime) -strtotime($date1)));
+                    if($diff==0){
+                        return Html::a('Quiz Analysis', $url, ['class' => 'btn btn-success']);
+
+                    }
+                    return "Quiz is still running";
+                }
+            ] :[],
+            [
+                //'label'=>'Custom Link',
+                'format'=>'raw',
+                'value' => function($data){
+                    $url = Data::$url."results/index&id=".$data['quizid'];
+                    $username=Yii::$app->user->identity['username'];
+
+                    return Html::a('View Leaderboard', $url, ['class' => 'btn btn-success']);
+
+
+                }
+            ],
 
             Yii::$app->user->identity['role']!='admin'?[
             'label'=>'Custom Link',

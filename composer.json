@@ -24,7 +24,8 @@
         "ruskid/yii2-csv-importer": "dev-master",
         "scotthuangzl/yii2-google-chart": "dev-master",
         "2amigos/yii2-ckeditor-widget": "~1.0",
-        "mihaildev/yii2-ckeditor": "*"
+        "mihaildev/yii2-ckeditor": "*",
+        "miloschuman/yii2-highcharts-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

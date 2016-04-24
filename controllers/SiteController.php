@@ -143,12 +143,14 @@ class SiteController extends Controller
         ]);
     }
     public function actionProfile(){
+        if(Yii::$app->user->identity['role']=='student') {
+            $username = Yii::$app->user->identity['username'];
+            $result = Results::find()->where(['userid' => $username])->all();
+            return $this->render('profile', [
+                'result' => $result,
+            ]);
+        }
 
-        $username=Yii::$app->user->identity['username'];
-        $result=Results::find()->where(['userid'=>$username])->all();
-        return $this->render('profile', [
-        'result'=>$result,
-        ]);
     }
     public function actionLogout()
     {

@@ -62,6 +62,10 @@ class QuizController extends Controller
 
         }
     }
+    public function actionAnalysis(){
+        return $this->render('analysis');
+
+    }
 
 
     /**

@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     $c = "option3";
                     $d = "option4";
                     $e = "option5";
-                    //$maindata[$i]['questionid']
+                    //$maindata[$array[$i]]['questionid']
                     //$con = mysqli_connect("","","","");
                     //$noofquestions = count($maindata);
                     //$qnumbers = range(1, $noofquestions);
@@ -153,91 +153,93 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-                $default = Presentquiz::find()->where(['quizid'=> $maindata[$i]['quizid'],'questionid'=>$maindata[$i]['questionid'],'userid'=>Yii::$app->user->identity['username']])->one();
-                $form = ActiveForm::begin(['id' => 'form-question'.$i,'enableAjaxValidation'=>false,'options' => ['autocomplete' => 'off','onsubmit'=>'return false;','onkeypress'=>'if(event.keyCode==13){send();}']]);
+                $default = Presentquiz::find()->where(['quizid'=> $maindata[$array[$i]]['quizid'],'questionid'=>$maindata[$array[$i]]['questionid'],'userid'=>Yii::$app->user->identity['username']])->one();
+                $form = ActiveForm::begin(['id' => 'form-question'.$array[$i],'enableAjaxValidation'=>false,'options' => ['autocomplete' => 'off','onsubmit'=>'return false;','onkeypress'=>'if(event.keyCode==13){send();}']]);
                 $o1 = ($default!=NULL&&$default[$a]==1) ? 1 : 0;
                 $o2 = ($default!=NULL&&$default[$b]==1) ? 1 : 0;
                 $o3 = ($default!=NULL&&$default[$c]==1) ? 1 : 0;
                 $o4 = ($default!=NULL&&$default[$d]==1) ? 1 : 0;
                 $o5 = ($default!=NULL&&$default[$e]==1) ? 1 : 0;
                 ?>
-                <?php //echo (string)($i+1).')'; ?>
-                 <?= $maindata[$i]['questiontext'] ?>
+                <?php //echo (string)($array[$i]+1).')'; ?>
+            <div class="container">
+                 <?= "<p class='bg-primary'>".$maindata[$array[$i]]['questiontext']."</p>" ?>
+                </div>
 <?php
-                //$model->questionid=$maindata[$i]['questionid'];
+                //$model->questionid=$maindata[$array[$i]]['questionid'];
                 echo "<br>";
-                if($maindata[$i]['image']!= "no image") {
+                if($maindata[$array[$i]]['image']!= "no image") {
 
-                    echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$maindata[$i]['image'].'" width="90px">&nbsp; &nbsp; &nbsp; ';
+                    echo '<img src="'.\Yii::$app->request->BaseUrl.'/'.$maindata[$array[$i]]['image'].'" width="90px">&nbsp; &nbsp; &nbsp; ';
         
                 }
                 //echo "a";
-                if($maindata[$i][$a]!=NULL){
+                if($maindata[$array[$i]][$a]!=NULL){
                    // echo "a)";
                   if($o1) {
                     $model->{$a} = true;
-                    echo $form->field($model, $a)->checkbox(['checked' =>"",'label' => 'a)'. $maindata[$i][$a]]);
+                    echo $form->field($model, $a)->checkbox(['checked' =>"",'label' => 'a)'. $maindata[$array[$i]][$a]]);
                   }
                   else
-                    echo $form->field($model, $a)->checkbox(["id" => $a ,'label' => 'a) '. $maindata[$i][$a]]);
+                    echo $form->field($model, $a)->checkbox(["id" => $a ,'label' => 'a) '. $maindata[$array[$i]][$a]]);
                 }
-                if($maindata[$i][$b]!=NULL){
+                if($maindata[$array[$i]][$b]!=NULL){
                     //echo "b)";
                     if($o2) {
                       $model->{$b} = true;
-                      echo $form->field($model, $b)->checkbox(['checked' =>"",'label' => 'b)'. $maindata[$i][$b]]);
+                      echo $form->field($model, $b)->checkbox(['checked' =>"",'label' => 'b)'. $maindata[$array[$i]][$b]]);
                     }
                     else
-                      echo $form->field($model, $b)->checkbox(["id" => $b ,'label' => 'b) '. $maindata[$i][$b]]);
+                      echo $form->field($model, $b)->checkbox(["id" => $b ,'label' => 'b) '. $maindata[$array[$i]][$b]]);
                 }
-                if($maindata[$i][$c]!=NULL){
+                if($maindata[$array[$i]][$c]!=NULL){
                     //echo "c)";
                     if($o3) {
                       $model->{$c} = true;
-                      echo $form->field($model, $c)->checkbox(['checked' =>"",'label' => 'c)'. $maindata[$i][$c]]);
+                      echo $form->field($model, $c)->checkbox(['checked' =>"",'label' => 'c)'. $maindata[$array[$i]][$c]]);
                     }
                     else
-                      echo $form->field($model, $c)->checkbox(["id" => $c ,'label' => 'c) '. $maindata[$i][$c]]);
+                      echo $form->field($model, $c)->checkbox(["id" => $c ,'label' => 'c) '. $maindata[$array[$i]][$c]]);
                 }
-                if($maindata[$i][$d]!=NULL){
+                if($maindata[$array[$i]][$d]!=NULL){
                     //echo "d)";
                     if($o4) {
                       $model->{$d} = true;
-                      echo $form->field($model, $d)->checkbox(['checked' =>"",'label' => 'd)'. $maindata[$i][$d]]);
+                      echo $form->field($model, $d)->checkbox(['checked' =>"",'label' => 'd)'. $maindata[$array[$i]][$d]]);
                     }
                     else
-                      echo $form->field($model, $d)->checkbox(["id" => $d ,'label' => 'd) '. $maindata[$i][$d]]);
+                      echo $form->field($model, $d)->checkbox(["id" => $d ,'label' => 'd) '. $maindata[$array[$i]][$d]]);
                 }
-                if($maindata[$i][$e]!=NULL){
+                if($maindata[$array[$i]][$e]!=NULL){
                    // echo "e)";
                    if($o5) {
                      $model->{$e} = true;
-                     echo $form->field($model, $e)->checkbox(['checked' =>"",'label' => 'e)'. $maindata[$i][$e]]);
+                     echo $form->field($model, $e)->checkbox(['checked' =>"",'label' => 'e)'. $maindata[$array[$i]][$e]]);
                    }
                    else
-                     echo $form->field($model, $e)->checkbox(["id" => $e ,'label' => 'e) '. $maindata[$i][$e]]);
+                     echo $form->field($model, $e)->checkbox(["id" => $e ,'label' => 'e) '. $maindata[$array[$i]][$e]]);
                 }
 
     
- echo Html::activeHiddenInput($model,'questionid',['value'=> $maindata[$i]['questionid']]) ;
+ echo Html::activeHiddenInput($model,'questionid',['value'=> $maindata[$array[$i]]['questionid']]) ;
  echo Html::activeHiddenInput($model,'userid',['value'=> 'user'])
                   ;
-echo Html::activeHiddenInput($model,'quizid',['value'=> $maindata[$i]['quizid']]) ;
+echo Html::activeHiddenInput($model,'quizid',['value'=> $maindata[$array[$i]]['quizid']]) ;
 
 if(!isset($quizid)) {
-    $quizid = $maindata[$i]['quizid'];
+    $quizid = $maindata[$array[$i]]['quizid'];
 }
 //echo Html::activeHiddenInput($model,'query1',['value'=> $maindata]) ;
 
 
-                 //echo $form->hiddenField($model,'questionid',array('value'=>$maindata[$questions[$i]]['questionid']));
+                 //echo $form->hiddenField($model,'questionid',array('value'=>$maindata[$questions[$array[$i]]]['questionid']));
                 //Html::activeHiddenInput($model, 'my_field')
-                // $form->field($model, 'questionid',array('value'=>$maindata[$questions[$i]]['questionid']))->hiddenInput()->label(false);
+                // $form->field($model, 'questionid',array('value'=>$maindata[$questions[$array[$i]]]['questionid']))->hiddenInput()->label(false);
 
 
 //echo $form->field($model,'questionid',)
 
-  //               echo $form->hiddenField($model,'questionid',['type'=>'hidden','value'=> $maindata[$questions[$i]]['questionid']]);?>
+  //               echo $form->hiddenField($model,'questionid',['type'=>'hidden','value'=> $maindata[$questions[$array[$i]]]['questionid']]);?>
 
                               <div class="form-group">
 

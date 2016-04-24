@@ -88,9 +88,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                     else{
     //return Html::button('Attempt',['value'=>$url,'class'=>'btn btn-success','id'=>'modalButton']);
+                        $datetime=$data['starttime'];
 
-                       return Html::a('Attempt', $url, ['class' => 'btn btn-success','id'=>'modalButton',]);
 
+                        $date1= date('Y-m-d H:i:s', time()+60*60*5+30*60);
+                        $diff = max(0,(strtotime($datetime) -strtotime($date1)));
+                        if($diff==0){
+
+                            return Html::a('Attempt', $url, ['class' => 'btn btn-success','id'=>'modalButton',]);
+
+                        }
+                        else{
+                            return "Updated soon";
+                        }
                     }
                 }
             ] : [],

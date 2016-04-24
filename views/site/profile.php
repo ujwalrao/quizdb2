@@ -15,19 +15,8 @@ use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 use Yii;
 use scotthuangzl\googlechart\GoogleChart;
-$analysis=array(array('Task', 'Percentage in quiz'));
+use miloschuman\highcharts\Highcharts;
 
-$i=count($result);
-$j=0;
-while($i!=0){
-    $a=$result[$j]['obtainedscore'];
-    $b=$result[$j]['totalscore'];
-    $ans=$a/$b;
-    $ans*=100;
-    array_push($analysis,array($result[$j]['quizname'],$ans));
-    $j++;
-    $i--;
-}
 
 
 /*
@@ -51,11 +40,27 @@ exit();
 
 <div class="col-sm-5">
 <?php
+
+
 if(Yii::$app->user->identity['role']=='student') {
+    $analysis=array(array('Task', 'Percentage in quiz'));
+
+    $i=count($result);
+    $j=0;
+    while($i!=0){
+        $a=$result[$j]['obtainedscore'];
+        $b=$result[$j]['totalscore'];
+        $ans=$a/$b;
+        $ans*=100;
+        array_push($analysis,array($result[$j]['quizname'],$ans));
+        $j++;
+        $i--;
+    }
     echo GoogleChart::widget(array('visualization' => 'LineChart',
         'data' => $analysis,
         'options' => array('title' => 'My Daily Activity')));
 }
+
 
 ?>
 

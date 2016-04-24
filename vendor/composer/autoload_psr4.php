@@ -18,6 +18,7 @@ return array(
     'scotthuangzl\\googlechart\\' => array($vendorDir . '/scotthuangzl/yii2-google-chart'),
     'russ666\\widgets\\' => array($vendorDir . '/russ666/yii2-countdown'),
     'ruskid\\csvimporter\\' => array($vendorDir . '/ruskid/yii2-csv-importer'),
+    'miloschuman\\highcharts\\' => array($vendorDir . '/miloschuman/yii2-highcharts-widget/src'),
     'mihaildev\\ckeditor\\' => array($vendorDir . '/mihaildev/yii2-ckeditor'),
     'dosamigos\\datetimepicker\\' => array($vendorDir . '/2amigos/yii2-date-time-picker-widget/src'),
     'dosamigos\\ckeditor\\' => array($vendorDir . '/2amigos/yii2-ckeditor-widget/src'),
