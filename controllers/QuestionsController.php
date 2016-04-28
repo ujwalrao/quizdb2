@@ -407,9 +407,11 @@ class QuestionsController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             $model->file = UploadedFile::getInstance($model, 'file');
-            
+
+
             if($model->file) {
-                echo "am here";
+                //echo "am here";
+               // exit();
                 $imagepath = 'uploads/questions';
                 $model->image = $imagepath.rand(10,100).$model->file->name;
 
@@ -558,6 +560,7 @@ class QuestionsController extends Controller
             $model->file = UploadedFile::getInstance($model, 'file');
             
             if($model->file) {
+
                 $imagepath = 'uploads/questions';
                 $model->image = $imagepath.rand(10,100).$model->file->name;
 

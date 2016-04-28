@@ -67,7 +67,18 @@ use mihaildev\ckeditor\CKEditor;
 
     <?= $form->field($model, 'essay')->textInput() ?>
 
-    <?= $form->field($model, 'solution')->textInput() ?>
+    <?php //= $form->field($model, 'solution')->textInput() ?>
+
+
+
+    <?php
+    echo $form->field($model, 'solution')->widget(CKEditor::className(),[
+        'editorOptions' => [
+            'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+            'inline' => false, //по умолчанию false
+        ],
+    ]);
+    ?>
 
 
 

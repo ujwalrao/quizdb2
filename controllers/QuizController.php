@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use app\models\Enroll;
 use app\models\Data;
+use app\models\Presentquiz;
 /**
  * QuizController implements the CRUD actions for Quiz model.
  */
@@ -62,11 +63,26 @@ class QuizController extends Controller
 
         }
     }
-    public function actionAnalysis(){
-        return $this->render('analysis');
+
+    public function actionAnalysis($id){
+         $data=Presentquiz::find()->where(['quizid'=> $id])->asArray()->all();
+        
+        return $this->render('analysis',[
+            'data'=>$data,
+            ]);
 
     }
+    public function actionTutorial(){
 
+
+
+
+        return $this->render('tutorial',[
+
+        ]);
+
+
+    }
 
     /**
      * Displays a single Quiz model.

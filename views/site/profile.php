@@ -13,7 +13,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
-use Yii;
+
 use scotthuangzl\googlechart\GoogleChart;
 use miloschuman\highcharts\Highcharts;
 
@@ -42,8 +42,13 @@ exit();
 <?php
 
 
+
+
+
+
 if(Yii::$app->user->identity['role']=='student') {
-    $analysis=array(array('Task', 'Percentage in quiz'));
+    $results=[];
+    $names=[];
 
     $i=count($result);
     $j=0;
@@ -52,16 +57,37 @@ if(Yii::$app->user->identity['role']=='student') {
         $b=$result[$j]['totalscore'];
         $ans=$a/$b;
         $ans*=100;
-        array_push($analysis,array($result[$j]['quizname'],$ans));
+        array_push($names,$result[$j]['quizname']);
+        
+        array_push($results,$ans);
         $j++;
         $i--;
     }
+
+
+
+    echo Highcharts::widget([
+        'options' => [
+            'title' => ['text' => 'Analysis'],
+            'xAxis' => [
+                'categories' => $names
+            ],
+            'yAxis' => [
+                'title' => ['text' => 'Percentage in each Quiz ']
+            ],
+            'series' => [
+                ['name' => 'Percentage ', 'data' => $results]
+            ]
+        ]
+    ]);
+    /*
     echo GoogleChart::widget(array('visualization' => 'LineChart',
         'data' => $analysis,
         'options' => array('title' => 'My Daily Activity')));
 }
 
-
+*/
+}
 ?>
 
 

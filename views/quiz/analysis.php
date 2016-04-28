@@ -6,25 +6,43 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
-use Yii;
+
 use scotthuangzl\googlechart\GoogleChart;
 use miloschuman\highcharts\Highcharts;
 
+$analysis=[];
+$names=[];
+foreach ($data as $key => $value) {
+    $string="Question".$value['questionid'];
+     if(!isset($names[$value['questionid']-1])){
+        $names[$value['questionid']-1]=$string;
+     }
+    if(isset($analysis[$value['questionid']-1])){
+        $analysis[$value['questionid']-1]++;
+     }
+     else{
+           $analysis[$value['questionid']-1]=0;
+        
+     }
+
+
+
+    
+}
 
 
 if(Yii::$app->user->identity['role']=='setter'){
-    echo \miloschuman\highcharts\Highmaps::widget([
+    echo Highcharts::widget([
         'options' => [
             'title' => ['text' => 'Question Analysis'],
             'xAxis' => [
-                'categories' => ['Apples', 'Bananas', 'Oranges']
+                'categories' => $names
             ],
             'yAxis' => [
-                'title' => ['text' => 'Fruit eaten']
+                'title' => ['text' => 'Attempted strength']
             ],
             'series' => [
-                ['name' => 'Jane', 'data' => [1, 0, 4]],
-                ['name' => 'John', 'data' => [5, 7, 3]]
+                ['name' => 'No. of students attempted', 'data' => $analysis]
             ]
         ]
     ]);

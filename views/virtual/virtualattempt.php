@@ -97,7 +97,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 $o5 = ($default!=NULL&&$default[$e]==1) ? 1 : 0;
                 ?>
                 <?php //echo (string)($i+1).')'; ?>
-                <?= $maindata[$i]['questiontext'] ?>
+
+                <div class="container">
+                    <div class="boxed"style= background-color:#f2f2f2;' >
+                        <?= "<p class='bg-primary'>".$maindata[$i]['questiontext']."</p>" ?>
+                    </div>
+                </div>
                 <?php
                 //$model->questionid=$maindata[$i]['questionid'];
                 echo "<br>";

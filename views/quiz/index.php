@@ -58,6 +58,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     return "Quiz is still running";
                 }
             ] :[],
+            Yii::$app->user->identity['role']=='setter'?[
+                'label'=>'Custom Link',
+                'format'=>'raw',
+                'value' => function($data){
+                    $url = Data::$url."virtual/solutions&id=".$data['quizid'];
+                        return Html::a('View Quiz', $url, ['class' => 'btn btn-success']);
+
+                }
+            ] :[],
+
             [
                 //'label'=>'Custom Link',
                 'format'=>'raw',

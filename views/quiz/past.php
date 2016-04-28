@@ -53,6 +53,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'label'=>'Custom Link',
                 'format'=>'raw',
                 'value' => function($data){
+                    $url=Data::$url."virtual/solutions&id=".$data['quizid'];
+                    $username=Yii::$app->user->identity['username'];
+
+                        return Html::a('View Solutions', $url, ['class' => 'btn btn-success']);
+
+
+                }
+            ] : [],
+            
+            Yii::$app->user->identity['role']=='student' ?[
+                //'label'=>'Custom Link',
+                'format'=>'raw',
+                'value' => function($data){
                     $url = Data::$url."results/index&id=".$data['quizid'];
                     $username=Yii::$app->user->identity['username'];
 
